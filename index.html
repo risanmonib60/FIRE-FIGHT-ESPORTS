@@ -1,0 +1,3863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FIRE FIGHT ESPORTS</title>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Google Fonts: Inter & Hind Siliguri for clean, regular readability -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- SweetAlert2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark/dark.css" rel="stylesheet">
+
+<style>
+    /* ================= CLEAN PROFESSIONAL DARK BLUE THEME ================= */
+    :root {
+        /* Main Brand Colors - Electric Blue & Cyan */
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --primary-light: rgba(37, 99, 235, 0.14);
+        --secondary: #38bdf8;
+
+        /* Status Colors */
+        --success: #10b981;
+        --success-light: rgba(16, 185, 129, 0.14);
+        --danger: #ef4444;
+        --danger-light: rgba(239, 68, 68, 0.14);
+        --warning: #f59e0b;
+        --warning-light: rgba(245, 158, 11, 0.14);
+
+        /* Solid Dark Slate Backgrounds */
+        --bg-main: #090d16;
+        --bg-surface: #111827;
+        --bg-surface-elevated: #1e293b;
+
+        /* Text Colors */
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+
+        /* Borders */
+        --border-color: #1f2937;
+        --border-light: #334155;
+
+        /* Payment Brand Colors */
+        --bkash-color: #e2136e;
+        --bkash-dark: #b00c55;
+        --rocket-color: #8c3494;
+        --rocket-dark: #632169;
+        --nagad-color: #f7941d;
+        --nagad-dark: #c97108;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', 'Hind Siliguri', sans-serif;
+        font-weight: 400;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        user-select: none;
+    }
+
+    input, textarea, select {
+        user-select: text;
+        font-family: inherit;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    body {
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        overflow-x: hidden;
+        min-height: 100vh;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    body:not(.sub-page) {
+        padding-top: 62px;
+    }
+    body.sub-page {
+        padding-top: 0;
+    }
+
+    .app-section {
+        display: none;
+        background: transparent;
+        min-height: calc(100vh - 62px);
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding-bottom: 85px;
+    }
+
+    .app-section.active {
+        display: block;
+    }
+
+    body.sub-page .app-section {
+        padding-bottom: 35px;
+    }
+
+    /* Clean Solid Cards */
+    .premium-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        transition: border-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .secondary-btn {
+        background: var(--bg-surface-elevated);
+        color: var(--text-main);
+        border: 1px solid var(--border-light);
+        padding: 8px 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: background 0.2s;
+    }
+    .secondary-btn:active {
+        background: var(--border-light);
+    }
+
+    /* ================= TOP HEADER ================= */
+    .app-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 62px;
+        background: var(--bg-surface);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        z-index: 2000;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    body.sub-page .app-header {
+        display: none;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .header-logo img {
+        height: 38px;
+        width: 38px;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        object-fit: cover;
+        display: block;
+    }
+
+    .header-title {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--text-main);
+    }
+
+    .header-wallet-pill {
+        background: var(--bg-surface-elevated);
+        border: 1px solid var(--border-light);
+        padding: 6px 12px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-main);
+        cursor: pointer;
+    }
+    .header-wallet-pill i {
+        color: var(--secondary);
+    }
+
+    /* ================= ENHANCED PREMIUM SPLASH SCREEN ================= */
+    #app-splash {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 50% 35%, #172554 0%, #090d16 70%, #050811 100%);
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        overflow: hidden;
+        transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+    }
+
+    .splash-bg-glow {
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        background: rgba(37, 99, 235, 0.18);
+        border-radius: 50%;
+        filter: blur(60px);
+        top: 28%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        animation: glowPulse 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowPulse {
+        0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+        100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    }
+
+    .splash-center-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: -40px;
+    }
+
+    .splash-logo-wrapper {
+        position: relative;
+        margin-bottom: 22px;
+    }
+
+    .splash-logo-box {
+        width: 106px;
+        height: 106px;
+        background: linear-gradient(145deg, #1e293b, #0f172a);
+        border-radius: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        border: 2px solid var(--primary);
+        box-shadow: 0 10px 30px rgba(37, 99, 235, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        animation: logoFloat 2.8s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-6px); }
+    }
+
+    .splash-logo-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 18px;
+    }
+
+    .splash-verified-badge {
+        position: absolute;
+        bottom: -6px;
+        right: -6px;
+        width: 28px;
+        height: 28px;
+        background: var(--primary);
+        border: 3px solid var(--bg-main);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 13px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .splash-app-name {
+        font-size: 25px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        margin-bottom: 6px;
+        background: linear-gradient(90deg, #ffffff, #93c5fd, #38bdf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .splash-tagline {
+        font-size: 12px;
+        color: var(--text-muted);
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .splash-version-pill {
+        font-size: 11px;
+        color: var(--secondary);
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        padding: 3px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+
+    .splash-bottom-area {
+        position: absolute;
+        bottom: 42px;
+        width: 260px;
+        text-align: center;
+        z-index: 2;
+    }
+
+    .splash-status-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        padding: 0 2px;
+    }
+
+    .splash-welcome {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .splash-welcome i {
+        color: var(--secondary);
+        font-size: 13px;
+    }
+
+    .splash-percent {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--secondary);
+    }
+
+    .splash-progress-bar {
+        width: 100%;
+        height: 6px;
+        background: rgba(30, 41, 59, 0.9);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        margin-bottom: 16px;
+    }
+
+    .splash-progress-fill {
+        width: 15%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 10px;
+        transition: width 0.25s ease-out;
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    }
+
+    .splash-security-note {
+        font-size: 11px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        opacity: 0.8;
+    }
+    .splash-security-note i {
+        color: var(--success);
+    }
+
+    /* ================= AUTH VIEW ================= */
+    #auth-view {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-main);
+        z-index: 5000;
+        display: none;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    #auth-view.active {
+        display: flex;
+    }
+
+    .auth-top-section {
+        min-height: 28vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 24px 20px;
+        text-align: center;
+    }
+
+    .auth-logo-icon {
+        width: 64px;
+        height: 64px;
+        background: var(--primary-light);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+        border: 1px solid rgba(37, 99, 235, 0.3);
+    }
+    .auth-logo-icon i {
+        font-size: 28px;
+        color: var(--primary);
+    }
+
+    .auth-title-large {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: var(--text-main);
+    }
+    .auth-subtitle {
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+
+    .auth-bottom-card {
+        background: var(--bg-surface);
+        flex: 1;
+        width: 100%;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+        border-top: 1px solid var(--border-color);
+        padding: 28px 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .auth-card-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-main);
+        margin-bottom: 20px;
+    }
+
+    .auth-input-group {
+        margin-bottom: 14px;
+        position: relative;
+    }
+    .auth-input-group i.bi-input-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 16px;
+    }
+
+    .auth-input-field {
+        width: 100%;
+        padding: 13px 16px 13px 44px;
+        background: var(--bg-main);
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        font-size: 14px;
+        outline: none;
+        color: var(--text-main);
+        transition: border-color 0.2s;
+    }
+    .auth-input-field:focus {
+        border-color: var(--primary);
+    }
+    .auth-input-field::placeholder {
+        color: var(--text-muted);
+    }
+
+    .auth-password-eye {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 16px;
+        padding: 4px;
+    }
+
+    .auth-checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 6px 0 18px;
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+    .auth-checkbox-row input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--primary);
+        cursor: pointer;
+    }
+
+    .auth-btn-primary {
+        width: 100%;
+        background: var(--primary);
+        color: white;
+        padding: 13px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 18px;
+        transition: background 0.2s;
+    }
+    .auth-btn-primary:active {
+        background: var(--primary-hover);
+    }
+    .auth-btn-primary:disabled {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .auth-footer-link {
+        text-align: center;
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-top: auto;
+        padding-bottom: 15px;
+    }
+    .auth-footer-link span {
+        color: var(--secondary);
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .auth-forget-link {
+        text-align: right;
+        font-size: 13px;
+        color: var(--secondary);
+        font-weight: 500;
+        margin-top: -6px;
+        margin-bottom: 18px;
+        cursor: pointer;
+    }
+
+    /* ================= SUB PAGE BACK NAV ================= */
+    .back-nav {
+        padding: 14px 16px;
+        color: var(--text-main);
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--bg-surface);
+        border-bottom: 1px solid var(--border-color);
+        font-size: 16px;
+        width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .back-nav i.bi-arrow-left {
+        color: var(--text-main);
+        font-size: 18px;
+        background: var(--bg-surface-elevated);
+        padding: 6px 8px;
+        border-radius: 8px;
+        border: 1px solid var(--border-light);
+    }
+
+    /* ================= EMPTY STATES ================= */
+    .empty-state-premium {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        text-align: center;
+        margin: 16px 15px;
+        background: var(--bg-surface);
+        border: 1px dashed var(--border-light);
+        border-radius: 14px;
+    }
+    .empty-state-icon {
+        font-size: 36px;
+        color: var(--text-muted);
+        margin-bottom: 10px;
+    }
+    .empty-state-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-main);
+        margin-bottom: 4px;
+    }
+    .empty-state-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+
+    /* ================= HOME PAGE & GAME CARDS ================= */
+    .home-content-wrapper {
+        padding: 0 15px 15px;
+    }
+
+    .hero-banner {
+        overflow: hidden;
+        margin: 15px;
+        border-radius: 14px;
+    }
+
+    .slider-container {
+        width: 100%;
+        padding-bottom: 48%;
+        position: relative;
+        overflow: hidden;
+        background: var(--bg-surface-elevated);
+    }
+    .slider-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: transform 0.5s ease;
+    }
+    .slide {
+        min-width: 100%;
+        height: 100%;
+        flex-shrink: 0;
+        cursor: pointer;
+    }
+    .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .slider-dots {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 0;
+        background: var(--bg-surface);
+        border-top: 1px solid var(--border-color);
+    }
+    .dot {
+        width: 7px;
+        height: 7px;
+        background: var(--border-light);
+        border-radius: 50%;
+        transition: all 0.25s;
+    }
+    .dot.active {
+        background: var(--primary);
+        width: 20px;
+        border-radius: 8px;
+    }
+
+    /* Notice Bar */
+    .marquee-container {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 10px 14px;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .marquee-container i {
+        color: var(--secondary);
+        margin-right: 12px;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+    .marquee-text-wrapper {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    #dynamic-notice {
+        color: var(--text-main);
+        font-weight: 400;
+        font-size: 13px;
+        display: inline-block;
+        padding-left: 100%;
+        animation: marqueeScroll 18s linear infinite;
+    }
+    @keyframes marqueeScroll {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(-100%, 0); }
+    }
+
+    .section-header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 8px 0 14px;
+    }
+
+    .category-title {
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .category-title::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 18px;
+        background: var(--primary);
+        border-radius: 4px;
+    }
+
+    /* Enhanced Game Category Cards */
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .cat-card-new {
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+    .cat-card-new:active {
+        transform: scale(0.98);
+        border-color: var(--primary);
+    }
+
+    .cat-img-wrap {
+        position: relative;
+        width: 100%;
+        height: 115px;
+        background: var(--bg-surface-elevated);
+    }
+    .cat-card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .cat-live-badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(9, 13, 22, 0.85);
+        color: var(--secondary);
+        font-size: 11px;
+        font-weight: 500;
+        padding: 3px 8px;
+        border-radius: 6px;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .cat-card-info {
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+    .cat-card-title {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-main);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .cat-card-arrow {
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        background: var(--primary-light);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        flex-shrink: 0;
+    }
+
+    /* ================= ENHANCED MATCH CARDS ================= */
+    .match-card {
+        overflow: hidden;
+        cursor: pointer;
+        margin-bottom: 16px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+    }
+    .match-card:active {
+        border-color: var(--primary);
+    }
+
+    .mc-header {
+        display: flex;
+        padding: 14px;
+        gap: 12px;
+        align-items: center;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .mc-thumb {
+        width: 64px;
+        height: 64px;
+        border-radius: 10px;
+        object-fit: cover;
+        border: 1px solid var(--border-light);
+        flex-shrink: 0;
+    }
+    .mc-header-info {
+        flex: 1;
+        min-width: 0;
+    }
+    .mc-badges-row {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 5px;
+        flex-wrap: wrap;
+    }
+    .mc-badge {
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 6px;
+        background: var(--primary-light);
+        color: var(--secondary);
+    }
+    .mc-badge.map {
+        background: var(--bg-surface-elevated);
+        color: var(--text-muted);
+    }
+    .mc-title-row {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-main);
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .mc-date-row {
+        font-size: 12px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .mc-date-row i {
+        color: var(--secondary);
+    }
+
+    .mc-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        text-align: center;
+        padding: 12px;
+        gap: 8px;
+        background: rgba(9, 13, 22, 0.5);
+    }
+    .mc-stat-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: var(--bg-surface);
+        padding: 8px 6px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+    }
+    .mc-stat-label {
+        font-size: 11px;
+        color: var(--text-muted);
+    }
+    .mc-stat-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-main);
+        margin-top: 2px;
+    }
+    .mc-stat-value.prize {
+        color: var(--warning);
+    }
+    .mc-stat-value.fee {
+        color: var(--secondary);
+    }
+
+    .mc-join-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 14px;
+        gap: 14px;
+        border-top: 1px solid var(--border-color);
+    }
+    .mc-progress-wrapper {
+        flex: 1;
+    }
+    .mc-prog-bar {
+        height: 8px;
+        background: var(--bg-main);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 6px;
+        border: 1px solid var(--border-color);
+    }
+    .mc-prog-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 4px;
+    }
+    .mc-spots-info {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--text-muted);
+    }
+
+    .btn-join-main {
+        background: var(--primary);
+        color: white;
+        padding: 9px 18px;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+    .btn-join-main:active {
+        background: var(--primary-hover);
+    }
+    .btn-join-main.disabled {
+        background: var(--bg-surface-elevated);
+        color: var(--success);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        pointer-events: none;
+    }
+
+    .mc-details-row {
+        display: flex;
+        padding: 0 14px 12px;
+        gap: 8px;
+    }
+    .btn-details {
+        border: 1px solid var(--border-light);
+        color: var(--text-main);
+        background: var(--bg-surface-elevated);
+        padding: 8px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        flex: 1;
+        justify-content: center;
+    }
+    .btn-details i {
+        color: var(--secondary);
+        font-size: 14px;
+    }
+
+    .mc-footer-timer {
+        background: var(--bg-surface-elevated);
+        color: var(--secondary);
+        text-align: center;
+        padding: 9px;
+        font-size: 12px;
+        font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    /* ================= MATCH TABS ================= */
+    .match-tabs-container {
+        display: flex;
+        gap: 8px;
+        background: var(--bg-surface);
+        padding: 10px 15px;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 53px;
+        z-index: 90;
+    }
+    .m-tab {
+        flex: 1;
+        text-align: center;
+        padding: 8px 0;
+        font-weight: 500;
+        font-size: 13px;
+        color: var(--text-muted);
+        cursor: pointer;
+        border-radius: 8px;
+        background: var(--bg-main);
+        border: 1px solid var(--border-color);
+    }
+    .m-tab.active {
+        color: white;
+        background: var(--primary);
+        border-color: var(--primary);
+        font-weight: 600;
+    }
+
+    /* ================= SHOP PAGE ================= */
+    #tab-shop-view {
+        padding: 15px;
+    }
+    .shop-header {
+        text-align: center;
+        margin-bottom: 18px;
+        padding: 20px 16px;
+    }
+    .shop-header i {
+        font-size: 32px;
+        color: var(--secondary);
+        margin-bottom: 6px;
+        display: block;
+    }
+    .shop-header-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-main);
+    }
+    .shop-header-sub {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 4px;
+    }
+
+    .shop-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+    .shop-actions-title {
+        font-weight: 600;
+        color: var(--text-main);
+        font-size: 15px;
+    }
+
+    .shop-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .shop-item-card {
+        padding: 16px 12px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .shop-item-img {
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+        margin-bottom: 10px;
+    }
+    .shop-item-title {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-main);
+        margin-bottom: 6px;
+    }
+    .shop-item-price {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--warning);
+        margin-bottom: 12px;
+        background: var(--warning-light);
+        padding: 4px 12px;
+        border-radius: 8px;
+    }
+
+    .shop-buy-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        width: 100%;
+        padding: 9px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    /* ================= PROFILE PAGE ================= */
+    .profile-header-bg {
+        background: var(--bg-surface);
+        padding: 28px 20px 24px;
+        text-align: center;
+        margin-bottom: 16px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .profile-avatar-box {
+        display: inline-block;
+    }
+    .profile-avatar-box img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--primary);
+        padding: 2px;
+        background: var(--bg-main);
+    }
+
+    .profile-stats-container {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 18px;
+    }
+    .profile-stat-box {
+        flex: 1;
+        background: var(--bg-surface-elevated);
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border-light);
+    }
+
+    .menu-item {
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        border-bottom: 1px solid var(--border-color);
+        cursor: pointer;
+        color: var(--text-main);
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .menu-item:last-child {
+        border-bottom: none;
+    }
+    .menu-item:active {
+        background: var(--bg-surface-elevated);
+    }
+
+    /* ================= EDIT PROFILE ================= */
+    .ep-container {
+        padding: 16px;
+    }
+    .ep-avatar-section {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .ep-avatar-ring {
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        border: 2px solid var(--primary);
+        margin: 0 auto 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-surface);
+    }
+    .ep-avatar-icon {
+        font-size: 34px;
+        color: var(--primary);
+    }
+
+    .ep-card {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+    .ep-card-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-main);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .ep-card-title i {
+        color: var(--primary);
+        font-size: 17px;
+    }
+
+    .ep-input-group {
+        position: relative;
+        margin-bottom: 12px;
+    }
+    .ep-input-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 16px;
+    }
+    .ep-input {
+        width: 100%;
+        padding: 12px 14px 12px 42px;
+        background: var(--bg-main);
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        font-size: 14px;
+        color: var(--text-main);
+        outline: none;
+    }
+    .ep-input:focus {
+        border-color: var(--primary);
+    }
+    .ep-input:disabled {
+        opacity: 0.6;
+    }
+
+    /* ================= MATCH DETAILS & JOIN PAGES ================= */
+    .md-info-card {
+        padding: 20px 16px;
+        text-align: center;
+    }
+    .md-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: var(--text-main);
+    }
+    .md-time {
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+
+    .md-table-container {
+        padding: 16px;
+        margin: 0 15px 15px;
+    }
+    .md-table-header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-main);
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 12px;
+    }
+
+    .rd-card {
+        margin: 15px;
+        overflow: hidden;
+    }
+    .rd-title-box {
+        padding: 16px;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+        background: var(--bg-surface-elevated);
+    }
+    .rd-main-title {
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--text-main);
+    }
+
+    .join-card {
+        margin: 15px;
+        padding: 20px 16px;
+    }
+    .join-match-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-main);
+        margin-bottom: 6px;
+        text-align: center;
+    }
+
+    .join-info-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        font-size: 13px;
+        background: var(--bg-main);
+        padding: 12px 16px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+    }
+    .join-warning {
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        background: var(--danger-light);
+        color: #fca5a5;
+        font-size: 13px;
+        text-align: center;
+        padding: 12px;
+        border-radius: 10px;
+        margin: 16px 0;
+    }
+
+    /* ================= WALLET, ADD MONEY & WITHDRAW ================= */
+    .wallet-gradient-card {
+        margin: 15px;
+        border-radius: 16px;
+        padding: 22px 20px;
+        color: white;
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        background: linear-gradient(135deg, #1e3a8a, #0f172a);
+        position: relative;
+    }
+    .wg-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 16px;
+    }
+    .wg-header i {
+        color: var(--secondary);
+        font-size: 18px;
+    }
+
+    .wallet-stats-white-card {
+        margin: 0 15px 16px;
+        padding: 16px 10px;
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+    }
+    .ws-icon i {
+        background: var(--bg-main);
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        display: inline-block;
+        font-size: 16px;
+        color: var(--primary);
+        margin-bottom: 6px;
+    }
+
+    .wallet-action-row {
+        display: flex;
+        gap: 12px;
+        padding: 0 15px 20px;
+    }
+    .wa-btn {
+        flex: 1;
+        padding: 13px;
+        border-radius: 10px;
+        border: none;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+    .wa-btn.add {
+        background: var(--primary);
+    }
+    .wa-btn.withdraw {
+        background: var(--success);
+    }
+
+    .quick-action-card, .learn-item {
+        margin: 0 15px 12px;
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .am-method-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 15px;
+    }
+    .am-card {
+        padding: 14px 8px;
+        text-align: center;
+        position: relative;
+        cursor: pointer;
+    }
+    .am-card img {
+        width: 36px;
+        height: 36px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto 8px;
+    }
+    .am-card span {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-muted);
+    }
+    .am-card.active {
+        border-color: var(--primary);
+        background: var(--bg-surface-elevated);
+    }
+    .am-card.active span {
+        color: var(--text-main);
+        font-weight: 600;
+    }
+    .am-check {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        color: var(--primary);
+        font-size: 15px;
+        display: none;
+    }
+    .am-card.active .am-check {
+        display: block;
+    }
+
+    .am-content-container {
+        padding: 0 15px 25px;
+    }
+    .am-box {
+        padding: 20px 16px;
+        color: white;
+    }
+    .am-box.bkash { background: linear-gradient(135deg, var(--bkash-color), var(--bkash-dark)); }
+    .am-box.rocket { background: linear-gradient(135deg, var(--rocket-color), var(--rocket-dark)); }
+    .am-box.nagad { background: linear-gradient(135deg, var(--nagad-color), var(--nagad-dark)); }
+
+    .am-title {
+        text-align: center;
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    .am-input {
+        width: 100%;
+        padding: 13px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.25);
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+        outline: none;
+        margin-bottom: 14px;
+        text-align: center;
+    }
+    .am-input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .am-list {
+        list-style: none;
+        font-size: 13px;
+        line-height: 1.6;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 14px;
+        border-radius: 10px;
+    }
+    .am-list li {
+        margin-bottom: 8px;
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    .am-list li:last-child {
+        margin-bottom: 0;
+    }
+    .am-list li i {
+        color: #fde047;
+        font-size: 15px;
+    }
+
+    .am-num-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 12px 0;
+        font-weight: 600;
+        color: #fde047;
+        font-size: 15px;
+        background: rgba(0, 0, 0, 0.35);
+        padding: 12px 14px;
+        border-radius: 10px;
+    }
+    .am-copy-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+    }
+    .am-verify-btn {
+        width: 100%;
+        padding: 13px;
+        background: var(--bg-main);
+        color: white;
+        border: none;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+    .withdraw-balance-card {
+        padding: 22px 15px;
+        text-align: center;
+        margin: 15px;
+    }
+    .withdraw-section-box {
+        padding: 18px 15px;
+        margin: 0 15px 16px;
+    }
+
+    .history-card {
+        margin: 0 15px 12px;
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-left: 4px solid var(--primary);
+    }
+
+    .notif-card {
+        margin: 0 15px 12px;
+        padding: 16px;
+        border-left: 4px solid var(--secondary);
+    }
+
+    /* ================= MODALS ================= */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(9, 13, 22, 0.85);
+        z-index: 3000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+    }
+    .modal.active {
+        display: flex;
+    }
+    .modal-box, .startup-modal-box {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        overflow: hidden;
+        width: 100%;
+        max-width: 370px;
+    }
+
+    /* ================= BOTTOM NAVIGATION BAR ================= */
+    .tab-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 64px;
+        background: var(--bg-surface);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid var(--border-color);
+        z-index: 1000;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    .tab-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        height: 100%;
+        color: var(--text-muted);
+        cursor: pointer;
+    }
+    .tab-icon-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2px;
+        border-radius: 8px;
+        padding: 3px 12px;
+    }
+    .tab-item i {
+        font-size: 20px;
+    }
+    .tab-item span {
+        font-size: 11px;
+        font-weight: 500;
+    }
+    .tab-item.active {
+        color: var(--primary);
+    }
+    .tab-item.active .tab-icon-box {
+        background: var(--primary-light);
+    }
+
+    /* Support Button */
+    .fab-telegram {
+        position: fixed;
+        bottom: 80px;
+        right: 16px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        z-index: 999;
+        cursor: pointer;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- TOP HEADER -->
+<header id="main-header" class="app-header">
+    <div class="header-left">
+        <div class="header-logo">
+            <img id="header-logo-img" src="fire-fight-esports-logo.png" alt="FIRE FIGHT ESPORTS Logo">
+        </div>
+        <div class="header-title" id="header-title-text">FIRE FIGHT ESPORTS</div>
+    </div>
+    <div class="header-wallet-pill" onclick="window.navigateSub('wallet')">
+        <i class="bi bi-wallet2"></i>
+        <span>৳ <span id="header-bal-total">0</span></span>
+    </div>
+</header>
+
+<!-- ENHANCED SPLASH SCREEN -->
+<div id="app-splash">
+    <div class="splash-bg-glow"></div>
+
+    <div class="splash-center-content">
+        <div class="splash-logo-wrapper">
+            <div class="splash-logo-box">
+                <img id="splash-logo" src="fire-fight-esports-logo.png" alt="FIRE FIGHT ESPORTS Logo">
+            </div>
+            <div class="splash-verified-badge">
+                <i class="bi bi-shield-check"></i>
+            </div>
+        </div>
+        <div class="splash-app-name" id="splash-app-name">FIRE FIGHT ESPORTS</div>
+        <div class="splash-tagline">Official Esports Platform</div>
+        <div class="splash-version-pill">Version 2.0 Pro</div>
+    </div>
+
+    <div class="splash-bottom-area">
+        <div class="splash-status-row">
+            <div class="splash-welcome">
+                <i class="bi bi-cpu"></i>
+                <span id="splash-status-text">Initializing system...</span>
+            </div>
+            <div class="splash-percent" id="splash-percent-text">15%</div>
+        </div>
+        <div class="splash-progress-bar">
+            <div class="splash-progress-fill" id="splash-progress-fill"></div>
+        </div>
+        <div class="splash-security-note">
+            <i class="bi bi-lock-fill"></i> Protected by Real-Time Anti-Cheat & SSL
+        </div>
+    </div>
+</div>
+
+<!-- TELEGRAM SUPPORT BUTTON -->
+<div class="fab-telegram" onclick="window.openSupport()" title="Live Support">
+    <i class="bi bi-telegram" style="font-size:24px;"></i>
+</div>
+
+<!-- AUTH VIEW -->
+<div id="auth-view">
+    <!-- LOGIN FORM -->
+    <div id="login-container" style="width:100%; height:100%; display:flex; flex-direction:column; max-width: 480px; margin: 0 auto;">
+        <div class="auth-top-section">
+            <div class="auth-logo-icon"><i class="bi bi-controller"></i></div>
+            <div class="auth-title-large">Welcome Back</div>
+            <div class="auth-subtitle">Sign in to join matches and win prizes</div>
+        </div>
+
+        <div class="auth-bottom-card">
+            <div class="auth-card-title">Login to Your Account</div>
+
+            <div class="auth-input-group">
+                <i class="bi bi-envelope bi-input-icon"></i>
+                <input type="email" id="login-email" class="auth-input-field" placeholder="Email address">
+            </div>
+            <div class="auth-input-group">
+                <i class="bi bi-lock bi-input-icon"></i>
+                <input type="password" id="login-pass" class="auth-input-field" placeholder="Password">
+                <i class="bi bi-eye-slash auth-password-eye" onclick="togglePass('login-pass', this)"></i>
+            </div>
+
+            <div class="auth-forget-link" onclick="window.resetUserPassword()">Forgot Password?</div>
+
+            <button class="auth-btn-primary" id="btn-login-submit" onclick="window.emailLogin()">Login</button>
+
+            <div class="auth-footer-link">
+                Don't have an account? <span onclick="window.toggleAuthMode('register')">Create Account</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="register-container" style="width:100%; height:100%; display:none; flex-direction:column; max-width: 480px; margin: 0 auto;">
+        <div class="auth-top-section">
+            <div class="auth-logo-icon"><i class="bi bi-person-plus"></i></div>
+            <div class="auth-title-large">Create Account</div>
+            <div class="auth-subtitle">Join daily esports tournaments easily</div>
+        </div>
+
+        <div class="auth-bottom-card">
+            <div class="auth-card-title">Sign Up</div>
+
+            <div class="auth-input-group">
+                <i class="bi bi-person bi-input-icon"></i>
+                <input type="text" id="reg-username" class="auth-input-field" placeholder="Full Name or Username">
+            </div>
+            <div class="auth-input-group">
+                <i class="bi bi-envelope bi-input-icon"></i>
+                <input type="email" id="reg-email" class="auth-input-field" placeholder="Email address">
+            </div>
+            <div class="auth-input-group">
+                <i class="bi bi-telephone bi-input-icon"></i>
+                <input type="tel" id="reg-phone" class="auth-input-field" placeholder="Mobile Number">
+            </div>
+            <div class="auth-input-group">
+                <i class="bi bi-lock bi-input-icon"></i>
+                <input type="password" id="reg-pass" class="auth-input-field" placeholder="Password (min 6 characters)">
+                <i class="bi bi-eye-slash auth-password-eye" onclick="togglePass('reg-pass', this)"></i>
+            </div>
+            <div class="auth-input-group">
+                <i class="bi bi-gift bi-input-icon"></i>
+                <input type="text" id="reg-promo" class="auth-input-field" placeholder="Referral Code (Optional)">
+            </div>
+
+            <div class="auth-checkbox-row">
+                <input type="checkbox" id="reg-terms" checked>
+                <label for="reg-terms">I agree to the Terms and Rules</label>
+            </div>
+
+            <button class="auth-btn-primary" id="btn-reg-submit" onclick="window.emailRegister()">Create Account</button>
+
+            <div class="auth-footer-link">
+                Already have an account? <span onclick="window.toggleAuthMode('login')">Login here</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN APP CONTENT -->
+<main id="main-content" style="display:none;">
+
+    <!-- SHOP PAGE -->
+    <section id="tab-shop-view" class="app-section">
+        <div class="shop-header premium-card">
+            <i class="bi bi-gem"></i>
+            <div class="shop-header-title">Diamond Top-Up Store</div>
+            <div class="shop-header-sub">Fast and instant in-game currency delivery</div>
+        </div>
+
+        <div class="shop-actions">
+            <div class="shop-actions-title">Select Package</div>
+            <button class="secondary-btn" onclick="window.navigateSub('history')">
+                <i class="bi bi-clock-history"></i> Order History
+            </button>
+        </div>
+
+        <div class="shop-grid" id="shop-items-container"></div>
+    </section>
+
+    <!-- HOME PAGE -->
+    <section id="tab-home-view" class="app-section active">
+        <div class="hero-banner premium-card">
+            <div class="slider-container" id="slider-touch-area">
+                <div id="banner-slider-wrapper" class="slider-wrapper"></div>
+            </div>
+            <div id="slider-dots" class="slider-dots"></div>
+        </div>
+
+        <div class="home-content-wrapper">
+            <div class="marquee-container">
+                <i class="bi bi-megaphone-fill"></i>
+                <div class="marquee-text-wrapper">
+                    <div id="dynamic-notice">Welcome! Join daily tournaments and win real cash prizes directly to your wallet.</div>
+                </div>
+            </div>
+
+            <div class="section-header-row">
+                <div class="category-title">Games & Tournaments</div>
+            </div>
+
+            <div id="dynamic-category-list" class="category-grid"></div>
+        </div>
+    </section>
+
+    <!-- MY MATCHES PAGE -->
+    <section id="tab-mymatches-view" class="app-section">
+        <div style="padding: 18px 15px 12px;">
+            <h2 style="font-weight:600; color:var(--text-main); font-size:17px;">
+                <i class="bi bi-controller" style="color:var(--primary); margin-right:8px;"></i>My Joined Matches
+            </h2>
+        </div>
+        <div id="mymatches-container" style="padding:0 15px;"></div>
+    </section>
+
+    <!-- RESULTS PAGE -->
+    <section id="tab-result-view" class="app-section">
+        <div style="padding: 18px 15px 12px;">
+            <h2 style="font-weight:600; color:var(--text-main); font-size:17px;">
+                <i class="bi bi-trophy" style="color:var(--warning); margin-right:8px;"></i>Match Results
+            </h2>
+        </div>
+        <div id="result-container" style="padding:0 15px;"></div>
+    </section>
+
+    <!-- PROFILE PAGE -->
+    <section id="tab-profile-view" class="app-section" style="padding-top:0;">
+        <div class="profile-header-bg">
+            <div class="profile-avatar-box">
+                <img id="profile-avatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile">
+            </div>
+            <h3 id="profile-name" style="margin-top:10px; font-weight:600; font-size:18px;">Player</h3>
+            <p id="profile-email" style="color:var(--text-muted); font-size:13px;">player@email.com</p>
+
+            <div class="profile-stats-container">
+                <div class="profile-stat-box">
+                    <div style="font-size:12px; color:var(--text-muted);">Deposit Balance</div>
+                    <div style="font-weight:600; font-size:18px; margin-top:4px;">৳ <span id="profile-bal-dep">0</span></div>
+                </div>
+                <div class="profile-stat-box">
+                    <div style="font-size:12px; color:var(--text-muted);">Winning Balance</div>
+                    <div style="font-weight:600; font-size:18px; margin-top:4px; color:var(--success);">৳ <span id="profile-bal-win">0</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 0 15px 20px;">
+            <div class="premium-card" style="overflow: hidden;">
+                <div class="menu-item" onclick="window.navigateSub('wallet')">
+                    <i class="bi bi-wallet2" style="font-size: 18px; color: var(--primary); width: 22px;"></i>
+                    <span>My Wallet</span>
+                    <i class="bi bi-chevron-right" style="margin-left:auto; color:var(--text-muted);"></i>
+                </div>
+                <div class="menu-item" onclick="window.navigateSub('edit-profile')">
+                    <i class="bi bi-person-gear" style="font-size: 18px; color: var(--primary); width: 22px;"></i>
+                    <span>Edit Profile</span>
+                    <i class="bi bi-chevron-right" style="margin-left:auto; color:var(--text-muted);"></i>
+                </div>
+                <div class="menu-item" onclick="window.navigateSub('refer')">
+                    <i class="bi bi-people" style="font-size: 18px; color: var(--primary); width: 22px;"></i>
+                    <span>Refer & Earn</span>
+                    <i class="bi bi-chevron-right" style="margin-left:auto; color:var(--text-muted);"></i>
+                </div>
+                <div class="menu-item" onclick="window.navigateSub('history')">
+                    <i class="bi bi-clock-history" style="font-size: 18px; color: var(--primary); width: 22px;"></i>
+                    <span>Transaction History</span>
+                    <i class="bi bi-chevron-right" style="margin-left:auto; color:var(--text-muted);"></i>
+                </div>
+                <div class="menu-item" onclick="window.navigateSub('notifications')">
+                    <i class="bi bi-bell" style="font-size: 18px; color: var(--primary); width: 22px;"></i>
+                    <span>Notifications</span>
+                    <i class="bi bi-chevron-right" style="margin-left:auto; color:var(--text-muted);"></i>
+                </div>
+<div class="menu-item" onclick="window.handleLogout()" id="profile-logout-btn">
+                    <i class="bi bi-box-arrow-right" style="color:var(--danger); font-size:18px; width: 22px;"></i>
+                    <span style="color:var(--danger); font-weight:500;">Log Out</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORY MATCHES LIST -->
+    <section id="matches-view" class="app-section">
+        <div class="back-nav" onclick="window.showTab('home')">
+            <i class="bi bi-arrow-left"></i> <span id="category-header-title">Matches</span>
+        </div>
+
+        <div class="match-tabs-container">
+            <div class="m-tab active" id="mt-Upcoming" onclick="window.filterMatchTab('Upcoming')">Upcoming</div>
+            <div class="m-tab" id="mt-Ongoing" onclick="window.filterMatchTab('Ongoing')">Ongoing</div>
+            <div class="m-tab" id="mt-Finished" onclick="window.filterMatchTab('Finished')">Results</div>
+        </div>
+
+        <div id="matches-container" style="padding:15px;"></div>
+    </section>
+
+    <!-- EDIT PROFILE PAGE -->
+    <section id="edit-profile-view" class="app-section">
+        <div class="back-nav" onclick="window.showTab('profile')">
+            <i class="bi bi-arrow-left"></i> Edit Profile
+        </div>
+
+        <div class="ep-container">
+            <div class="ep-avatar-section">
+                <div class="ep-avatar-ring">
+                    <i class="bi bi-person ep-avatar-icon"></i>
+                </div>
+                <div style="font-weight:600; font-size:16px;" id="ep-name-display">User</div>
+                <div style="font-size:13px; color:var(--text-muted);" id="ep-email-display">user@mail.com</div>
+            </div>
+
+            <div class="ep-card premium-card">
+                <div class="ep-card-title"><i class="bi bi-person-vcard"></i> Personal Info</div>
+                <div class="ep-input-group">
+                    <i class="bi bi-person ep-input-icon"></i>
+                    <input type="text" id="ep-username" class="ep-input" placeholder="Your Name">
+                </div>
+                <div class="ep-input-group">
+                    <i class="bi bi-envelope ep-input-icon"></i>
+                    <input type="email" id="ep-email" class="ep-input" placeholder="Email" disabled>
+                </div>
+                <div class="ep-input-group" style="margin-bottom:0;">
+                    <i class="bi bi-telephone ep-input-icon"></i>
+                    <input type="tel" id="ep-phone" class="ep-input" placeholder="Mobile Number">
+                </div>
+            </div>
+
+            <div class="ep-card premium-card">
+                <div class="ep-card-title"><i class="bi bi-shield-lock"></i> Change Password</div>
+                <div class="ep-input-group">
+                    <i class="bi bi-key ep-input-icon"></i>
+                    <input type="password" id="ep-pass-cur" class="ep-input" placeholder="Current Password">
+                </div>
+                <div class="ep-input-group">
+                    <i class="bi bi-lock ep-input-icon"></i>
+                    <input type="password" id="ep-pass-new" class="ep-input" placeholder="New Password">
+                </div>
+                <div class="ep-input-group" style="margin-bottom:0;">
+                    <i class="bi bi-check2-circle ep-input-icon"></i>
+                    <input type="password" id="ep-pass-con" class="ep-input" placeholder="Confirm New Password">
+                </div>
+            </div>
+
+            <button class="auth-btn-primary" onclick="window.saveProfile()">Save Changes</button>
+        </div>
+    </section>
+<!-- MATCH DETAILS FULL PAGE -->
+    <section id="match-details-view" class="app-section">
+        <div class="back-nav" onclick="window.goBackFromDetails()">
+            <i class="bi bi-arrow-left"></i> Match Details
+        </div>
+
+        <div class="md-info-card premium-card" style="margin:15px;">
+            <div class="md-title" id="md-title">Match Title</div>
+            <div class="md-time" id="md-time">Schedule: Loading...</div>
+            <div id="md-rules-box" style="margin-top:12px; padding:12px; background:var(--bg-main); border-radius:10px; border:1px solid var(--border-color); text-align:left; font-size:13px; color:var(--text-muted); display:none;"></div>
+            <div id="md-timer" class="mc-footer-timer match-countdown" style="margin-top:14px; border-radius:8px;"></div>
+        </div>
+
+        <div class="md-table-container premium-card">
+            <div class="md-table-header">
+                <span><i class="bi bi-people-fill" style="margin-right:8px; color:var(--primary);"></i> Joined Players</span>
+                <span id="md-count">0/0</span>
+            </div>
+            <div id="md-p-list"></div>
+        </div>
+    </section>
+
+    <!-- RESULT DETAILS FULL PAGE -->
+    <section id="result-details-view" class="app-section">
+        <div class="back-nav" onclick="window.showTab('result')">
+            <i class="bi bi-arrow-left"></i> Match Result
+        </div>
+
+        <div id="rd-container" style="padding-bottom: 20px;"></div>
+    </section>
+
+    <!-- JOIN MATCH FULL PAGE -->
+    <section id="join-match-view" class="app-section">
+        <div class="back-nav" onclick="window.closeJoinPage()">
+            <i class="bi bi-arrow-left"></i> Join Match
+        </div>
+
+        <div class="join-card premium-card">
+            <div class="join-match-title" id="join-page-title">Match Name</div>
+            <div style="font-size:13px; color:var(--text-muted); margin-bottom:16px; text-align:center;" id="join-page-meta">Schedule</div>
+
+            <div class="join-info-row">
+                <div>
+                    <div style="color:var(--text-muted); font-size:12px;">Total Prize</div>
+                    <div id="join-page-win" style="color:var(--warning); font-weight:600; font-size:16px;">৳ 0</div>
+                </div>
+                <div style="text-align:right;">
+                    <div style="color:var(--text-muted); font-size:12px;">Entry Fee</div>
+                    <div id="join-page-fee" style="color:var(--secondary); font-weight:600; font-size:16px;">৳ 0</div>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-bottom:14px;">
+                <span id="join-page-type" style="background:var(--primary-light); color:var(--secondary); padding:5px 14px; border-radius:20px; font-weight:500; font-size:12px; display:inline-block;">Solo</span>
+            </div>
+
+            <div class="join-warning">
+                <i class="bi bi-info-circle" style="margin-right:5px;"></i>
+                Enter your exact In-Game Name so we can verify your kills and prizes.
+            </div>
+
+            <div id="join-inputs-container"></div>
+        </div>
+
+        <div style="padding: 0 15px 30px;">
+            <button id="confirm-join-btn" class="auth-btn-primary join-btn-full" style="margin-bottom:0;" onclick="window.confirmJoin()">Join Match Now</button>
+        </div>
+    </section>
+
+    <!-- WALLET PAGE -->
+    <section id="wallet-view" class="app-section">
+        <div class="back-nav" onclick="window.showTab('profile')">
+            <i class="bi bi-arrow-left"></i> My Wallet
+        </div>
+
+        <div class="wallet-gradient-card">
+            <div class="wg-header">
+                <i class="bi bi-wallet2"></i>
+                <span>Total Balance</span>
+            </div>
+            <div style="font-size:30px; font-weight:700; display:flex; align-items:center; gap:6px;">
+                <span style="font-size:20px; color:var(--secondary);">৳</span> <span id="wallet-balance-display">0</span>
+            </div>
+        </div>
+
+        <div class="wallet-stats-white-card premium-card">
+            <div>
+                <div class="ws-icon"><i class="bi bi-plus-circle"></i></div>
+                <div style="font-size:12px; color:var(--text-muted);">Deposit Balance</div>
+                <div style="font-size:17px; font-weight:600; color:var(--text-main); margin-top:2px;">৳ <span id="deposit-available-wallet">0</span></div>
+            </div>
+            <div style="border-right:1px solid var(--border-color);"></div>
+            <div>
+                <div class="ws-icon"><i class="bi bi-trophy" style="color:var(--success);"></i></div>
+                <div style="font-size:12px; color:var(--text-muted);">Winning Balance</div>
+                <div style="font-size:17px; font-weight:600; color:var(--success); margin-top:2px;">৳ <span id="withdraw-available-wallet">0</span></div>
+            </div>
+        </div>
+
+        <div class="wallet-action-row">
+            <button class="wa-btn add" onclick="window.navigateSub('add-money')">
+                <i class="bi bi-plus-lg"></i> Add Money
+            </button>
+            <button class="wa-btn withdraw" onclick="window.navigateSub('withdraw')">
+                <i class="bi bi-cash"></i> Withdraw
+            </button>
+        </div>
+
+        <div style="padding:4px 16px 10px; font-size:14px; font-weight:600; color:var(--text-main);">Recent Activity</div>
+        <div class="quick-action-card premium-card" onclick="window.navigateSub('history')">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <div style="width:40px; height:40px; background:var(--primary-light); color:var(--primary); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px;">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <div>
+                    <div style="font-weight:600; font-size:14px;">Transaction History</div>
+                    <div style="font-size:12px; color:var(--text-muted);">View all deposits, withdrawals & orders</div>
+                </div>
+            </div>
+            <i class="bi bi-chevron-right" style="color:var(--text-muted);"></i>
+        </div>
+
+        <div style="padding:10px 16px 10px; font-size:14px; font-weight:600; color:var(--text-main);">Help Videos</div>
+        <div style="padding-bottom: 20px;">
+            <div class="learn-item premium-card" onclick="window.openVideo('addMoney')">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="width:40px; height:40px; display:flex; align-items:center; justify-content:center; font-size:18px; background:var(--bg-surface-elevated); border-radius:10px; color:var(--secondary);"><i class="bi bi-wallet2"></i></div>
+                    <div>
+                        <div style="font-weight:600; font-size:14px;">How to Add Money</div>
+                        <div style="font-size:12px; color:var(--text-muted);">Step-by-step deposit video guide</div>
+                    </div>
+                </div>
+                <i class="bi bi-play-circle-fill" style="color:var(--primary); font-size:22px;"></i>
+            </div>
+            <div class="learn-item premium-card" onclick="window.openVideo('howPlay')">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="width:40px; height:40px; display:flex; align-items:center; justify-content:center; font-size:18px; background:var(--bg-surface-elevated); border-radius:10px; color:var(--secondary);"><i class="bi bi-controller"></i></div>
+                    <div>
+                        <div style="font-weight:600; font-size:14px;">How to Join a Match</div>
+                        <div style="font-size:12px; color:var(--text-muted);">Learn how to play tournaments</div>
+                    </div>
+                </div>
+                <i class="bi bi-play-circle-fill" style="color:var(--primary); font-size:22px;"></i>
+            </div>
+            <div class="learn-item premium-card" onclick="window.openVideo('getRoom')">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="width:40px; height:40px; display:flex; align-items:center; justify-content:center; font-size:18px; background:var(--bg-surface-elevated); border-radius:10px; color:var(--secondary);"><i class="bi bi-key"></i></div>
+                    <div>
+                        <div style="font-weight:600; font-size:14px;">How to Get Room ID</div>
+                        <div style="font-size:12px; color:var(--text-muted);">Where to find custom room details</div>
+                    </div>
+                </div>
+                <i class="bi bi-play-circle-fill" style="color:var(--primary); font-size:22px;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADD MONEY PAGE -->
+    <section id="add-money-view" class="app-section">
+        <div class="back-nav" onclick="window.navigateSub('wallet')">
+            <i class="bi bi-arrow-left"></i> Add Money
+        </div>
+
+        <div style="padding: 16px 15px 0; font-size: 13px; color: var(--text-muted); font-weight: 500;">1. Select Payment Method</div>
+
+        <div class="am-method-grid">
+            <div class="am-card premium-card active" id="tab-bkash" onclick="window.switchPayTab('bkash')">
+                <i class="bi bi-check-circle-fill am-check"></i>
+                <img src="https://i.ibb.co.com/qF1xD5xj/image-search-1769091253468.png" alt="bKash">
+                <span>bKash</span>
+            </div>
+            <div class="am-card premium-card" id="tab-nagad" onclick="window.switchPayTab('nagad')">
+                <i class="bi bi-check-circle-fill am-check"></i>
+                <img src="https://i.ibb.co.com/4gmdTj1f/image-search-1769091285966.png" alt="Nagad">
+                <span>Nagad</span>
+            </div>
+            <div class="am-card premium-card" id="tab-rocket" onclick="window.switchPayTab('rocket')">
+                <i class="bi bi-check-circle-fill am-check"></i>
+                <img src="https://i.ibb.co.com/MDt4TzDf/image-search-1769091463880.png" alt="Rocket">
+                <span>Rocket</span>
+            </div>
+        </div>
+
+        <div style="padding: 4px 15px 12px; font-size: 13px; color: var(--text-muted); font-weight: 500;">2. Send Money & Verify Transaction ID</div>
+
+        <div class="am-content-container">
+            <!-- bKash -->
+            <div id="content-bkash" class="am-box bkash premium-card">
+                <div class="am-title">bKash Payment Verification</div>
+                <ul class="am-list">
+                    <li><i class="bi bi-1-circle-fill"></i> Open your bKash App or dial *247#</li>
+                    <li><i class="bi bi-2-circle-fill"></i> Choose <b>Send Money</b></li>
+                    <li><i class="bi bi-3-circle-fill"></i> Send the amount you want to add to this number:</li>
+                </ul>
+                <div class="am-num-row">
+                    <span id="bkash-num-display">Loading...</span>
+                    <button class="am-copy-btn" onclick="window.copyToClipboard('bkash-num-display')"><i class="bi bi-copy"></i> Copy</button>
+                </div>
+                <ul class="am-list" style="margin-bottom: 14px;">
+                    <li><i class="bi bi-4-circle-fill"></i> Enter the <b>Amount</b> and <b>Transaction ID (TrxID)</b> below:</li>
+                </ul>
+                <input type="number" id="amt-bkash" class="am-input" placeholder="Enter Sent Amount (৳)">
+                <input type="text" id="trx-bkash" class="am-input" placeholder="Enter bKash Transaction ID (TrxID)">
+                <button class="am-verify-btn" onclick="window.triggerVerify()">Verify Payment</button>
+            </div>
+
+            <!-- Rocket -->
+            <div id="content-rocket" class="am-box rocket premium-card" style="display:none;">
+                <div class="am-title">Rocket Payment Verification</div>
+                <ul class="am-list">
+                    <li><i class="bi bi-1-circle-fill"></i> Open your Rocket App or dial *322#</li>
+                    <li><i class="bi bi-2-circle-fill"></i> Choose <b>Send Money</b></li>
+                    <li><i class="bi bi-3-circle-fill"></i> Send the amount to this number:</li>
+                </ul>
+                <div class="am-num-row">
+                    <span id="rocket-num-display">Loading...</span>
+                    <button class="am-copy-btn" onclick="window.copyToClipboard('rocket-num-display')"><i class="bi bi-copy"></i> Copy</button>
+                </div>
+                <ul class="am-list" style="margin-bottom: 14px;">
+                    <li><i class="bi bi-4-circle-fill"></i> Enter the <b>Amount</b> and <b>Transaction ID (TrxID)</b> below:</li>
+                </ul>
+                <input type="number" id="amt-rocket" class="am-input" placeholder="Enter Sent Amount (৳)">
+                <input type="text" id="trx-rocket" class="am-input" placeholder="Enter Rocket Transaction ID (TrxID)">
+                <button class="am-verify-btn" onclick="window.triggerVerify()">Verify Payment</button>
+            </div>
+
+            <!-- Nagad -->
+            <div id="content-nagad" class="am-box nagad premium-card" style="display:none;">
+                <div class="am-title">Nagad Payment Verification</div>
+                <ul class="am-list">
+                    <li><i class="bi bi-1-circle-fill"></i> Open your Nagad App or dial *167#</li>
+                    <li><i class="bi bi-2-circle-fill"></i> Choose <b>Send Money</b></li>
+                    <li><i class="bi bi-3-circle-fill"></i> Send the amount to this number:</li>
+                </ul>
+                <div class="am-num-row">
+                    <span id="nagad-num-display">Loading...</span>
+                    <button class="am-copy-btn" onclick="window.copyToClipboard('nagad-num-display')"><i class="bi bi-copy"></i> Copy</button>
+                </div>
+                <ul class="am-list" style="margin-bottom: 14px;">
+                    <li><i class="bi bi-4-circle-fill"></i> Enter the <b>Amount</b> and <b>Transaction ID (TrxID)</b> below:</li>
+                </ul>
+                <input type="number" id="amt-nagad" class="am-input" placeholder="Enter Sent Amount (৳)">
+                <input type="text" id="trx-nagad" class="am-input" placeholder="Enter Nagad Transaction ID (TrxID)">
+                <button class="am-verify-btn" onclick="window.triggerVerify()">Verify Payment</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- WITHDRAW VIEW -->
+    <section id="withdraw-view" class="app-section">
+        <div class="back-nav" onclick="window.navigateSub('wallet')">
+            <i class="bi bi-arrow-left"></i> Withdraw Money
+        </div>
+
+        <div class="withdraw-balance-card premium-card">
+            <div style="font-size:13px; color:var(--text-muted); margin-bottom:4px;">Available Winning Balance</div>
+            <div style="font-size:28px; color:var(--success); font-weight:700;">৳ <span id="withdraw-available">0</span></div>
+        </div>
+
+        <div class="withdraw-section-box premium-card">
+            <div style="font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 12px;">Select Payment Method</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <div class="method-card" style="border: 1px solid var(--primary); background: var(--bg-surface-elevated); border-radius: 10px; padding: 12px 5px; text-align: center; cursor: pointer;" onclick="window.selectWithdrawMethod(this, 'bKash')">
+                    <img src="https://i.ibb.co.com/qF1xD5xj/image-search-1769091253468.png" style="width: 30px; height: 30px; object-fit: contain; display: block; margin: 0 auto 6px;">
+                    <span style="font-size: 12px; font-weight: 500; color: var(--text-main);">bKash</span>
+                </div>
+                <div class="method-card" style="border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 5px; text-align: center; cursor: pointer;" onclick="window.selectWithdrawMethod(this, 'Nagad')">
+                    <img src="https://i.ibb.co.com/4gmdTj1f/image-search-1769091285966.png" style="width: 30px; height: 30px; object-fit: contain; display: block; margin: 0 auto 6px;">
+                    <span style="font-size: 12px; font-weight: 500; color: var(--text-muted);">Nagad</span>
+                </div>
+                <div class="method-card" style="border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 5px; text-align: center; cursor: pointer;" onclick="window.selectWithdrawMethod(this, 'Rocket')">
+                    <img src="https://i.ibb.co.com/MDt4TzDf/image-search-1769091463880.png" style="width: 30px; height: 30px; object-fit: contain; display: block; margin: 0 auto 6px;">
+                    <span style="font-size: 12px; font-weight: 500; color: var(--text-muted);">Rocket</span>
+                </div>
+            </div>
+            <input type="hidden" id="withdraw-method" value="bKash">
+        </div>
+
+        <div class="withdraw-section-box premium-card">
+            <div style="font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 12px;">Withdrawal Details</div>
+            <div class="ep-input-group">
+                <i class="bi bi-telephone ep-input-icon"></i>
+                <input type="tel" id="withdraw-number" class="ep-input" placeholder="Enter Account Number">
+            </div>
+            <div class="ep-input-group">
+                <i class="bi bi-cash ep-input-icon"></i>
+                <input type="number" id="withdraw-amount" class="ep-input" placeholder="Amount to Withdraw (Min 100 BDT)">
+            </div>
+
+            <div style="background:var(--warning-light); padding:10px 12px; border-radius:8px; margin-bottom:16px; font-size:12px; color:#fcd34d;">
+                <i class="bi bi-info-circle" style="margin-right:6px;"></i> Minimum withdrawal amount is 100 BDT.
+            </div>
+
+            <button class="auth-btn-primary" style="margin-bottom:0;" onclick="window.submitWithdraw()">Withdraw Now</button>
+        </div>
+    </section>
+
+    <!-- TRANSACTION HISTORY -->
+    <section id="history-view" class="app-section">
+        <div class="back-nav" onclick="window.navigateSub('wallet')">
+            <i class="bi bi-arrow-left"></i> Transaction History
+        </div>
+        <div id="history-list" style="padding: 15px 0 30px;"></div>
+    </section>
+
+    <!-- NOTIFICATIONS -->
+    <section id="notifications-view" class="app-section">
+        <div class="back-nav" onclick="window.showTab('profile')">
+            <i class="bi bi-arrow-left"></i> Notifications
+        </div>
+        <div id="notif-list-container" style="padding: 15px 0 30px;"></div>
+    </section>
+
+    <!-- REFER & EARN -->
+    <section id="refer-view" class="app-section">
+        <div class="back-nav" onclick="window.showTab('profile')">
+            <i class="bi bi-arrow-left"></i> Refer & Earn
+        </div>
+
+        <div style="padding: 20px 15px; text-align:center;">
+            <div class="premium-card" style="padding: 24px 18px;">
+                <div style="background: var(--primary-light); display:inline-flex; border-radius:50%; padding:16px; margin-bottom:14px;">
+                    <i class="bi bi-gift" style="font-size:36px; color:var(--primary);"></i>
+                </div>
+                <div style="font-size:18px; font-weight:600; color:var(--text-main); margin-bottom:8px;">Invite Friends & Earn</div>
+                <div style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">
+                    Share your referral code with friends. Earn rewards when they join and play tournaments!
+                </div>
+
+                <div style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">Your Referral Code</div>
+                <div style="background: var(--bg-main); border: 1px dashed var(--primary); color: var(--secondary); padding: 14px; border-radius: 10px; font-size: 18px; font-weight: 600; cursor: pointer; margin-bottom:18px;" id="refer-code-display" onclick="window.copyToClipboard('refer-code-display')">
+                    Loading...
+                </div>
+
+                <button class="auth-btn-primary" style="margin-bottom:0;" onclick="window.copyToClipboard('refer-code-display')">
+                    <i class="bi bi-copy" style="margin-right:6px;"></i> Copy Referral Code
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- BOTTOM TAB BAR -->
+<div class="tab-bar hidden">
+    <div class="tab-item" onclick="window.showTab('shop')" id="nav-shop">
+        <div class="tab-icon-box"><i class="bi bi-bag"></i></div>
+        <span>Shop</span>
+    </div>
+    <div class="tab-item active" onclick="window.showTab('home')" id="nav-home">
+        <div class="tab-icon-box"><i class="bi bi-controller"></i></div>
+        <span>Play</span>
+    </div>
+    <div class="tab-item" onclick="window.showTab('mymatches')" id="nav-mymatches">
+        <div class="tab-icon-box"><i class="bi bi-calendar2-check"></i></div>
+        <span>My Matches</span>
+    </div>
+    <div class="tab-item" onclick="window.showTab('result')" id="nav-result">
+        <div class="tab-icon-box"><i class="bi bi-trophy"></i></div>
+        <span>Results</span>
+    </div>
+    <div class="tab-item" onclick="window.showTab('profile')" id="nav-profile">
+        <div class="tab-icon-box"><i class="bi bi-person"></i></div>
+        <span>Profile</span>
+    </div>
+</div>
+
+<!-- STARTUP POPUP MODAL -->
+<div id="startup-modal" class="modal">
+    <div class="startup-modal-box">
+        <div style="font-weight:600; font-size:16px; color:var(--text-main); border-bottom:1px solid var(--border-color); padding: 16px 18px; display:flex; align-items:center; gap:8px;">
+            <i class="bi bi-megaphone-fill" style="color:var(--primary);"></i> Notice
+        </div>
+        <div id="startup-popup-content" style="font-size:14px; color:var(--text-muted); padding: 18px;">Loading...</div>
+        <div style="padding: 0 18px 18px;">
+            <button class="auth-btn-primary" style="margin-bottom:0;" onclick="document.getElementById('startup-modal').classList.remove('active')">Got It</button>
+        </div>
+    </div>
+</div>
+
+<!-- PRIZE POOL MODAL -->
+<div id="prize-modal" class="modal">
+    <div class="modal-box">
+        <div style="background:var(--primary); padding:18px; text-align:center; position:relative;">
+            <div style="position:absolute; top: 12px; right: 12px; width:28px; height:28px; background:rgba(0,0,0,0.25); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:18px; cursor:pointer;" onclick="document.getElementById('prize-modal').classList.remove('active')"><i class="bi bi-x"></i></div>
+            <div style="font-weight:600; font-size:16px; color:#fff;">Prize Breakdown</div>
+            <div id="prize-modal-subtitle" style="font-size:12px; color:rgba(255,255,255,0.85); margin-top:2px;">Match Name</div>
+        </div>
+        <div style="padding:16px;" id="prize-list-content"></div>
+    </div>
+</div>
+
+<!-- ROOM ID MODAL -->
+<div id="room-modal" class="modal">
+    <div class="modal-box">
+        <div style="background:var(--primary); padding:18px; text-align:center; position:relative;">
+            <div style="position:absolute; top: 12px; right: 12px; width:28px; height:28px; background:rgba(0,0,0,0.25); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:18px; cursor:pointer;" onclick="document.getElementById('room-modal').classList.remove('active')"><i class="bi bi-x"></i></div>
+            <div style="font-weight:600; font-size:16px; color:#fff;">Room ID & Password</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.85); margin-top:2px;">Copy details to join the custom room</div>
+        </div>
+        <div style="padding:18px; text-align:center;">
+            <div style="margin-bottom:12px; background:var(--bg-main); padding:14px; border-radius:10px; border:1px solid var(--border-color);">
+                <span style="font-size:12px; color:var(--text-muted);">Room ID</span>
+                <span style="font-size:20px; font-weight:600; color:var(--text-main); display:block; margin:6px 0;" id="popup-room-id">--</span>
+                <button class="secondary-btn" onclick="window.copyToClipboard('popup-room-id')"><i class="bi bi-copy"></i> Copy Room ID</button>
+            </div>
+            <div style="background:var(--bg-main); padding:14px; border-radius:10px; border:1px solid var(--border-color);">
+                <span style="font-size:12px; color:var(--text-muted);">Password</span>
+                <span style="font-size:20px; font-weight:600; color:var(--text-main); display:block; margin:6px 0;" id="popup-room-pass">--</span>
+                <button class="secondary-btn" onclick="window.copyToClipboard('popup-room-pass')"><i class="bi bi-copy"></i> Copy Password</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JOIN WARNING MODAL -->
+<div id="join-warning-modal" class="modal">
+    <div class="modal-box" style="text-align:center; padding:24px 18px;">
+        <i class="bi bi-lock-fill" style="font-size:40px; color:var(--warning); margin-bottom:10px; display:block;"></i>
+        <h3 style="margin-bottom:8px; font-weight:600; color:var(--text-main); font-size: 17px;">Room Locked</h3>
+        <p style="color:var(--text-muted); font-size:13px; margin-bottom:20px;">You need to join this match first to see the Room ID and Password.</p>
+        <button class="auth-btn-primary" style="margin-bottom:0;" onclick="document.getElementById('join-warning-modal').classList.remove('active')">Close</button>
+    </div>
+</div>
+
+<!-- SHOP PURCHASE MODAL -->
+<div id="shop-buy-modal" class="modal">
+    <div class="modal-box" style="padding: 22px 18px;">
+        <div style="text-align:center; margin-bottom:18px;">
+            <i class="bi bi-bag-check-fill" style="font-size:38px; color:var(--primary); display:block; margin-bottom:6px;"></i>
+            <h3 style="color:var(--text-main); font-weight:600; font-size: 17px; margin-bottom:4px;">Confirm Order</h3>
+            <p style="color:var(--text-muted); font-size:13px;" id="shop-modal-desc">Loading...</p>
+        </div>
+
+        <div class="auth-input-group">
+            <i class="bi bi-person-badge bi-input-icon"></i>
+            <input type="text" id="shop-ingame-id" class="auth-input-field" placeholder="Enter Player UID">
+        </div>
+        <div class="auth-input-group">
+            <i class="bi bi-person bi-input-icon"></i>
+            <input type="text" id="shop-ingame-name" class="auth-input-field" placeholder="Enter In-Game Name">
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:18px;">
+            <button class="secondary-btn" style="flex:1; padding:12px;" onclick="document.getElementById('shop-buy-modal').classList.remove('active')">Cancel</button>
+            <button class="auth-btn-primary" style="flex:1; margin-bottom:0; padding:12px;" onclick="window.confirmShopPurchase()">Buy Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, set, onValue, push, update, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAbicheY7mS3hHfe3bZWQeHvTZGN5ecGGU",
+  authDomain: "fire-fight-esports.firebaseapp.com",
+  databaseURL: "https://fire-fight-esports-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "fire-fight-esports",
+  storageBucket: "fire-fight-esports.firebasestorage.app",
+  messagingSenderId: "247359088570",
+  appId: "1:247359088570:web:cb2d09ee05e91a8d29df83"
+};
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
+
+    let currentUser = null;
+    let depositBal = 0, winningBal = 0;
+    let activeCategories = {};
+    let rawMatches = [];
+    let currentActiveCategory = null;
+    let userJoinedMatches = [];
+    let currentJoinId = null, currentEntryFee = 0;
+    let videoLinks = { addMoney: '', getRoom: '', howPlay: '' };
+    let currentMatchFilter = 'Upcoming';
+    let supportLink = "";
+    let shopLink = "";
+    let currentPayMethod = 'bkash';
+    let allParticipants = {};
+    let currentShopProduct = null;
+    let lastMainView = 'home';
+
+    // Expose functions to global window scope
+    window.verifyAutoPay = verifyAutoPay;
+    window.emailLogin = emailLogin;
+    window.emailRegister = emailRegister;
+    window.resetUserPassword = resetUserPassword;
+    window.handleLogout = handleLogout;
+    window.toggleAuthMode = toggleAuthMode;
+    window.copyToClipboard = copyToClipboard;
+    window.openVideo = openVideo;
+    window.openSupport = openSupport;
+    window.switchPayTab = switchPayTab;
+    window.submitWithdraw = submitWithdraw;
+    window.saveProfile = saveProfile;
+    window.confirmJoin = confirmJoin;
+    window.prepJoin = prepJoin;
+    window.checkRoom = checkRoom;
+    window.openPrizePool = openPrizePool;
+    window.showTab = showTab;
+    window.navigateSub = navigateSub;
+    window.openCategory = openCategory;
+    window.filterMatchTab = filterMatchTab;
+    window.selectWithdrawMethod = selectWithdrawMethod;
+    window.openShopLink = openShopLink;
+    window.triggerVerify = triggerVerify;
+    window.openMatchDetails = openMatchDetails;
+    window.openResultDetails = openResultDetails;
+    window.closeJoinPage = closeJoinPage;
+    window.openBuyModal = openBuyModal;
+    window.confirmShopPurchase = confirmShopPurchase;
+    window.goBackFromDetails = goBackFromDetails;
+
+    window.togglePass = function(id, icon) {
+        const el = document.getElementById(id);
+        if (el.type === 'password') {
+            el.type = 'text';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+            icon.style.color = 'var(--primary)';
+        } else {
+            el.type = 'password';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+            icon.style.color = 'var(--text-muted)';
+        }
+    };
+
+    // Animated Splash Screen Progress Sequence
+    function runSplashSequence() {
+        const steps = [
+            { pct: 25, text: "Connecting to server..." },
+            { pct: 55, text: "Syncing live tournaments..." },
+            { pct: 85, text: "Verifying user session..." },
+            { pct: 100, text: "Ready to launch!" }
+        ];
+        const fillEl = document.getElementById('splash-progress-fill');
+        const pctEl = document.getElementById('splash-percent-text');
+        const statusEl = document.getElementById('splash-status-text');
+
+        steps.forEach((step, idx) => {
+            setTimeout(() => {
+                if (fillEl) fillEl.style.width = step.pct + '%';
+                if (pctEl) pctEl.innerText = step.pct + '%';
+                if (statusEl) statusEl.innerText = step.text;
+            }, (idx + 1) * 320);
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        runSplashSequence();
+        initData();
+    });
+
+    function hideSplash() {
+        const splash = document.getElementById('app-splash');
+        if (splash && splash.style.display !== 'none') {
+            const fillEl = document.getElementById('splash-progress-fill');
+            const pctEl = document.getElementById('splash-percent-text');
+            const statusEl = document.getElementById('splash-status-text');
+            if (fillEl) fillEl.style.width = '100%';
+            if (pctEl) pctEl.innerText = '100%';
+            if (statusEl) statusEl.innerText = 'Ready!';
+
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                splash.style.transform = 'scale(1.04)';
+                setTimeout(() => { splash.style.display = 'none'; }, 450);
+            }, 250);
+        }
+    }
+
+    function initData() {
+        // Fallback so splash screen never gets stuck
+        setTimeout(hideSplash, 1800);
+
+        onValue(ref(db, 'categories'), s => {
+            const d = s.val();
+            const c = document.getElementById('dynamic-category-list');
+            if (!c) return;
+            c.innerHTML = "";
+            if (d) {
+                activeCategories = d;
+                Object.entries(d).forEach(([k, v]) => {
+                    c.innerHTML += `
+                    <div class="cat-card-new" onclick="window.openCategory('${k}')">
+                        <div class="cat-img-wrap">
+                            <img src="${v.img || 'https://cdn-icons-png.flaticon.com/512/686/686589.png'}" class="cat-card-img" alt="${v.name}">
+                            <div class="cat-live-badge" id="count-${k}">0 Matches</div>
+                        </div>
+                        <div class="cat-card-info">
+                            <div class="cat-card-title">${v.name}</div>
+                            <div class="cat-card-arrow"><i class="bi bi-chevron-right"></i></div>
+                        </div>
+                    </div>`;
+                });
+                updateCounts();
+            } else {
+                c.innerHTML = `
+                <div class="empty-state-premium" style="grid-column: 1 / -1;">
+                    <i class="bi bi-controller empty-state-icon"></i>
+                    <div class="empty-state-title">No Games Added</div>
+                    <div class="empty-state-desc">Categories will appear here once added.</div>
+                </div>`;
+            }
+        });
+
+        onValue(ref(db, 'matches'), s => {
+            rawMatches = [];
+            const d = s.val();
+            if (d) {
+                Object.entries(d).forEach(([k, v]) => {
+                    rawMatches.push({ dbKey: k, ...v });
+                });
+            }
+            updateCounts();
+
+            if (document.getElementById('matches-view').classList.contains('active')) {
+                filterMatchTab(currentMatchFilter);
+            }
+            if (document.getElementById('tab-mymatches-view').classList.contains('active')) {
+                loadMyMatches();
+            }
+            loadResults();
+        });
+
+        onValue(ref(db, 'match_participants'), s => {
+            allParticipants = s.val() || {};
+            calculateJoinedMatches();
+        });
+
+        onValue(ref(db, 'app_settings'), s => {
+            const d = s.val();
+            if (d) {
+                const brandName = d.app_name || 'FIRE FIGHT ESPORTS';
+                document.getElementById('splash-app-name').innerText = brandName;
+                document.getElementById('header-title-text').innerText = brandName;
+                if (d.app_logo) {
+                    document.getElementById('splash-logo').src = d.app_logo;
+                    document.getElementById('header-logo-img').src = d.app_logo;
+                }
+                if (d.notice) document.getElementById('dynamic-notice').innerText = d.notice;
+                if (d.bkash_number) document.getElementById('bkash-num-display').innerText = d.bkash_number;
+                if (d.nagad_number) document.getElementById('nagad-num-display').innerText = d.nagad_number;
+                if (d.rocket_number) document.getElementById('rocket-num-display').innerText = d.rocket_number;
+
+                videoLinks.addMoney = d.how_to_add_money_link || '';
+                videoLinks.getRoom = d.how_to_get_room_id_link || '';
+                videoLinks.howPlay = d.how_to_play_link || '';
+                supportLink = d.support_link || '';
+                shopLink = d.shop_link || '';
+
+                if (d.show_popup && d.popup_text) {
+                    document.getElementById('startup-popup-content').innerHTML = d.popup_text.replace(/\n/g, '<br>');
+                    setTimeout(() => { document.getElementById('startup-modal').classList.add('active'); }, 1500);
+                }
+
+                if (d.banners) {
+                    const w = document.getElementById('banner-slider-wrapper');
+                    const dots = document.getElementById('slider-dots');
+                    w.innerHTML = "";
+                    dots.innerHTML = "";
+                    const banners = Object.values(d.banners);
+                    if (banners.length > 0) {
+                        banners.forEach((b, i) => {
+                            const clickAttr = b.link ? `onclick="window.open('${b.link}', '_blank')"` : "";
+                            w.innerHTML += `<div class="slide" ${clickAttr}><img src="${b.img}" alt="Banner"></div>`;
+                            dots.innerHTML += `<div class="dot ${i === 0 ? 'active' : ''}"></div>`;
+                        });
+                        initSlider();
+                    }
+                }
+            }
+            setTimeout(hideSplash, 1350);
+        });
+
+        onValue(ref(db, 'shop_products'), s => {
+            const d = s.val();
+            const c = document.getElementById('shop-items-container');
+            if (!c) return;
+            c.innerHTML = "";
+            if (d) {
+                Object.entries(d).forEach(([k, v]) => {
+                    c.innerHTML += `
+                    <div class="shop-item-card premium-card">
+                        <img src="${v.image || 'https://cdn-icons-png.flaticon.com/512/751/751463.png'}" class="shop-item-img" alt="Diamond">
+                        <div class="shop-item-title">${v.diamonds} Diamonds</div>
+                        <div class="shop-item-price">৳ ${v.price}</div>
+                        <button class="shop-buy-btn" onclick="window.openBuyModal('${k}', '${v.diamonds}', ${v.price})">
+                            <i class="bi bi-cart-plus"></i> Buy Now
+                        </button>
+                    </div>`;
+                });
+            } else {
+                c.innerHTML = `
+                <div class="empty-state-premium" style="grid-column: 1 / -1;">
+                    <i class="bi bi-bag-x empty-state-icon"></i>
+                    <div class="empty-state-title">No Packages Available</div>
+                    <div class="empty-state-desc">Diamond packages will be listed here soon.</div>
+                </div>`;
+            }
+        });
+
+        startTimers();
+    }
+
+    function openBuyModal(productId, diamonds, price) {
+        if (!currentUser) {
+            Swal.fire({ icon: 'warning', title: 'Login Required', text: 'Please login to buy diamonds.', background: '#111827', color: '#f8fafc' });
+            return;
+        }
+        currentShopProduct = { id: productId, diamonds, price };
+        document.getElementById('shop-modal-desc').innerHTML = `Package: <b style="color:var(--text-main);">${diamonds} Diamonds</b> for <b style="color:var(--warning);">৳ ${price}</b>`;
+        document.getElementById('shop-ingame-id').value = "";
+        document.getElementById('shop-ingame-name').value = "";
+        document.getElementById('shop-buy-modal').classList.add('active');
+    }
+
+    async function confirmShopPurchase() {
+        if (!currentShopProduct || !currentUser) return;
+
+        const uid = document.getElementById('shop-ingame-id').value.trim();
+        const uname = document.getElementById('shop-ingame-name').value.trim();
+
+        if (!uid || !uname) {
+            return Swal.fire({ icon: 'warning', title: 'Missing Details', text: 'Please enter both your Player UID and In-Game Name.', background: '#111827', color: '#f8fafc' });
+        }
+
+        const price = parseFloat(currentShopProduct.price);
+        const totalBal = depositBal + winningBal;
+
+        if (totalBal < price) {
+            return Swal.fire({ icon: 'error', title: 'Low Balance', text: 'You do not have enough balance. Please add money to your wallet.', background: '#111827', color: '#f8fafc' });
+        }
+
+        let d = depositBal, w = winningBal;
+        let rem = price;
+        if (d >= rem) { d -= rem; rem = 0; }
+        else { rem -= d; d = 0; w -= rem; }
+
+        try {
+            await update(ref(db, 'users/' + currentUser.uid), { deposit: d, winning: w });
+
+            const orderId = push(ref(db, 'shop_orders')).key;
+            await set(ref(db, 'shop_orders/' + orderId), {
+                userId: currentUser.uid,
+                productId: currentShopProduct.id,
+                diamonds: currentShopProduct.diamonds,
+                price: price,
+                inGameId: uid,
+                inGameName: uname,
+                status: 'Pending',
+                date: new Date().toLocaleString(),
+                timestamp: serverTimestamp()
+            });
+
+            const tid = push(ref(db, 'transactions/' + currentUser.uid)).key;
+            await set(ref(db, 'transactions/' + currentUser.uid + '/' + tid), {
+                type: 'Diamond Top-Up', amount: price, method: 'Wallet', status: 'Pending', date: new Date().toLocaleString()
+            });
+
+            document.getElementById('shop-buy-modal').classList.remove('active');
+            Swal.fire({
+                icon: 'success',
+                title: 'Order Placed!',
+                text: 'Your diamond top-up order has been submitted.',
+                background: '#111827', color: '#f8fafc'
+            });
+        } catch (e) {
+            Swal.fire({ icon: 'error', title: 'Order Failed', text: e.message, background: '#111827', color: '#f8fafc' });
+        }
+    }
+
+    function calculateJoinedMatches() {
+        userJoinedMatches = [];
+        if (allParticipants && currentUser) {
+            Object.keys(allParticipants).forEach(matchKey => {
+                const parts = Object.values(allParticipants[matchKey]);
+                if (parts.some(p => p.joinedBy === currentUser.uid)) {
+                    userJoinedMatches.push(matchKey);
+                }
+            });
+        }
+
+        if (document.getElementById('matches-view').classList.contains('active')) {
+            filterMatchTab(currentMatchFilter);
+        }
+        if (document.getElementById('tab-mymatches-view').classList.contains('active')) {
+            loadMyMatches();
+        }
+    }
+
+    function updateCounts() {
+        Object.keys(activeCategories).forEach(k => {
+            const n = rawMatches.filter(m => m.categoryId === k && m.status !== 'Finished').length;
+            const el = document.getElementById(`count-${k}`);
+            if (el) el.innerText = `${n} Matches`;
+        });
+    }
+
+    let slideIndex = 0;
+    let slideInterval;
+    function initSlider() {
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        if (slides.length === 0) return;
+        if (slideInterval) clearInterval(slideInterval);
+        slideInterval = setInterval(() => {
+            slideIndex = (slideIndex + 1) % slides.length;
+            const wrapper = document.getElementById('banner-slider-wrapper');
+            if (wrapper) wrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+            dots.forEach(d => d.classList.remove('active'));
+            if (dots[slideIndex]) dots[slideIndex].classList.add('active');
+        }, 4000);
+    }
+
+    function showTab(t) {
+        lastMainView = t;
+        document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+        const navEl = document.getElementById(`nav-${t}`);
+        if (navEl) navEl.classList.add('active');
+
+        document.querySelectorAll('.app-section').forEach(e => e.classList.remove('active'));
+        const viewEl = document.getElementById(`tab-${t}-view`);
+        if (viewEl) viewEl.classList.add('active');
+
+        if (['shop', 'home', 'mymatches', 'result', 'profile'].includes(t)) {
+            document.body.classList.remove('sub-page');
+            document.querySelector('.tab-bar').classList.remove('hidden');
+        }
+        if (t === 'mymatches') loadMyMatches();
+        if (t === 'result') loadResults();
+        window.scrollTo(0, 0);
+    }
+
+    function navigateSub(t) {
+        document.querySelectorAll('.app-section').forEach(e => e.classList.remove('active'));
+        document.body.classList.add('sub-page');
+        document.querySelector('.tab-bar').classList.add('hidden');
+
+        const targetId = t === 'wallet' ? 'wallet-view' :
+                         t === 'add-money' ? 'add-money-view' :
+                         t === 'withdraw' ? 'withdraw-view' :
+                         t === 'history' ? 'history-view' :
+                         t === 'notifications' ? 'notifications-view' :
+                         t === 'refer' ? 'refer-view' :
+                         t === 'edit-profile' ? 'edit-profile-view' : '';
+
+        if (targetId) document.getElementById(targetId).classList.add('active');
+
+        if (t === 'wallet' && currentUser) {
+            document.getElementById('withdraw-available-wallet').innerText = winningBal;
+            document.getElementById('deposit-available-wallet').innerText = depositBal;
+        } else if (t === 'withdraw' && currentUser) {
+            document.getElementById('withdraw-available').innerText = winningBal;
+        } else if (t === 'history') {
+            loadHistory();
+        } else if (t === 'notifications') {
+            loadNotifs();
+        } else if (t === 'edit-profile' && currentUser) {
+            document.getElementById('ep-username').value = currentUser.displayName || '';
+            document.getElementById('ep-email').value = currentUser.email || '';
+        }
+        window.scrollTo(0, 0);
+    }
+
+    function selectWithdrawMethod(el, method) {
+        document.getElementById('withdraw-method').value = method;
+        document.querySelectorAll('.method-card').forEach(e => {
+            e.style.borderColor = "var(--border-color)";
+            e.style.background = "transparent";
+            const span = e.querySelector('span');
+            if (span) span.style.color = "var(--text-muted)";
+        });
+        el.style.borderColor = "var(--primary)";
+        el.style.background = "var(--bg-surface-elevated)";
+        const activeSpan = el.querySelector('span');
+        if (activeSpan) activeSpan.style.color = "var(--text-main)";
+    }
+
+    function openCategory(cid) {
+        currentActiveCategory = cid;
+        lastMainView = 'category';
+        const catName = activeCategories[cid] ? activeCategories[cid].name : 'Matches';
+        document.getElementById('category-header-title').innerText = catName;
+
+        document.querySelectorAll('.app-section').forEach(e => e.classList.remove('active'));
+        document.getElementById('matches-view').classList.add('active');
+        document.body.classList.add('sub-page');
+        document.querySelector('.tab-bar').classList.add('hidden');
+        filterMatchTab('Upcoming');
+        window.scrollTo(0, 0);
+    }
+
+    function goBackFromDetails() {
+        if (lastMainView === 'category' && currentActiveCategory) {
+            openCategory(currentActiveCategory);
+        } else if (lastMainView === 'mymatches') {
+            showTab('mymatches');
+        } else {
+            showTab('home');
+        }
+    }
+
+    function filterMatchTab(status) {
+        currentMatchFilter = status;
+        document.querySelectorAll('.m-tab').forEach(e => e.classList.remove('active'));
+        const tabEl = document.getElementById('mt-' + status);
+        if (tabEl) tabEl.classList.add('active');
+
+        const c = document.getElementById('matches-container');
+        c.innerHTML = "";
+        let m = [];
+        if (status === 'Upcoming') m = rawMatches.filter(x => x.categoryId === currentActiveCategory && x.status === 'Upcoming');
+        else if (status === 'Ongoing') m = rawMatches.filter(x => x.categoryId === currentActiveCategory && x.status === 'Ongoing');
+        else if (status === 'Finished') m = rawMatches.filter(x => x.categoryId === currentActiveCategory && x.status === 'Finished');
+
+        if (m.length === 0) {
+            c.innerHTML = `
+            <div class="empty-state-premium">
+                <i class="bi bi-calendar-x empty-state-icon"></i>
+                <div class="empty-state-title">No ${status} Matches</div>
+                <div class="empty-state-desc">Check back soon for new matches in this category.</div>
+            </div>`;
+        } else {
+            m.forEach(x => {
+                c.innerHTML += createMatchCardHTML(x, (status === 'Finished' ? 'result' : 'play'));
+            });
+        }
+    }
+
+    function loadMyMatches() {
+        const c = document.getElementById('mymatches-container');
+        if (!c) return;
+        c.innerHTML = "";
+        if (!currentUser) {
+            c.innerHTML = `<div class="empty-state-premium"><div class="empty-state-title">Please login to view your matches</div></div>`;
+            return;
+        }
+
+        const m = rawMatches.filter(x => userJoinedMatches.includes(x.dbKey));
+
+        if (m.length === 0) {
+            c.innerHTML = `
+            <div class="empty-state-premium">
+                <i class="bi bi-controller empty-state-icon"></i>
+                <div class="empty-state-title">No Joined Matches</div>
+                <div class="empty-state-desc">You haven't joined any matches yet. Choose a game on the home screen to play!</div>
+            </div>`;
+        } else {
+            m.forEach(x => {
+                c.innerHTML += createMatchCardHTML(x, 'joined');
+            });
+        }
+    }
+
+    function loadResults() {
+        const c = document.getElementById('result-container');
+        if (!c) return;
+        c.innerHTML = "";
+        const m = rawMatches.filter(x => x.status === 'Finished');
+        if (m.length === 0) {
+            c.innerHTML = `
+            <div class="empty-state-premium">
+                <i class="bi bi-trophy empty-state-icon"></i>
+                <div class="empty-state-title">No Results Yet</div>
+                <div class="empty-state-desc">Completed match results will appear here.</div>
+            </div>`;
+        } else {
+            m.forEach(x => {
+                c.innerHTML += createMatchCardHTML(x, 'result');
+            });
+        }
+    }
+
+    function createMatchCardHTML(m, type) {
+        const joined = Number(m.joined) || 0;
+        const total = Number(m.total) || 48;
+        const spotsLeft = Math.max(0, total - joined);
+        const isFull = joined >= total;
+        const perc = Math.min((joined / total) * 100, 100);
+
+        const isJoined = userJoinedMatches.includes(m.dbKey);
+        const catImg = (activeCategories[m.categoryId] && activeCategories[m.categoryId].img) ? activeCategories[m.categoryId].img : 'https://cdn-icons-png.flaticon.com/512/686/686589.png';
+        const safeTitle = (m.title || 'Tournament Match').replace(/'/g, "\\'");
+
+        let btnJoinHTML = '';
+        if (type === 'play') {
+            if (isJoined) {
+                btnJoinHTML = `<button class="btn-join-main disabled"><i class="bi bi-check-circle-fill"></i> Joined</button>`;
+            } else if (isFull) {
+                btnJoinHTML = `<button class="btn-join-main disabled" style="color:var(--danger); border-color:rgba(239,68,68,0.3);">Match Full</button>`;
+            } else {
+                btnJoinHTML = `<button class="btn-join-main" onclick="event.stopPropagation(); window.prepJoin('${m.dbKey}', '${m.type || 'Solo'}', ${Number(m.entry) || 0}, '${m.dbKey}', '${safeTitle}', ${Number(m.total_prize) || 0}, '${m.time || ''}')">Join Now</button>`;
+            }
+        } else if (type === 'joined') {
+            btnJoinHTML = `<button class="btn-join-main disabled"><i class="bi bi-check-circle-fill"></i> Joined</button>`;
+        } else {
+            btnJoinHTML = `<button class="btn-join-main" onclick="event.stopPropagation(); window.openResultDetails('${m.dbKey}')">View Result</button>`;
+        }
+
+        return `
+        <div class="match-card" onclick="${type === 'result' ? `window.openResultDetails('${m.dbKey}')` : `window.openMatchDetails('${m.dbKey}')`}">
+            <div class="mc-header">
+                <img src="${catImg}" class="mc-thumb" alt="Game">
+                <div class="mc-header-info">
+                    <div class="mc-badges-row">
+                        <span class="mc-badge">${m.type || 'Solo'}</span>
+                        <span class="mc-badge map">${m.map || 'Bermuda'}</span>
+                    </div>
+                    <div class="mc-title-row">${m.title || 'Match'}</div>
+                    <div class="mc-date-row"><i class="bi bi-clock"></i> ${m.time || 'TBA'}</div>
+                </div>
+            </div>
+
+            <div class="mc-stats-grid">
+                <div class="mc-stat-box">
+                    <div class="mc-stat-label">Total Prize</div>
+                    <div class="mc-stat-value prize">৳ ${m.total_prize || 0}</div>
+                </div>
+                <div class="mc-stat-box">
+                    <div class="mc-stat-label">Per Kill</div>
+                    <div class="mc-stat-value">৳ ${m.per_kill || 0}</div>
+                </div>
+                <div class="mc-stat-box">
+                    <div class="mc-stat-label">Entry Fee</div>
+                    <div class="mc-stat-value fee">৳ ${m.entry || 0}</div>
+                </div>
+            </div>
+
+            ${type !== 'result' ? `
+            <div class="mc-join-row">
+                <div class="mc-progress-wrapper">
+                    <div class="mc-prog-bar"><div class="mc-prog-fill" style="width:${perc}%"></div></div>
+                    <div class="mc-spots-info">
+                        <span>${spotsLeft} spots left</span>
+                        <span>${joined}/${total}</span>
+                    </div>
+                </div>
+                ${btnJoinHTML}
+            </div>
+            ` : ''}
+
+            <div class="mc-details-row">
+                <div class="btn-details" onclick="event.stopPropagation(); window.checkRoom('${m.dbKey}')">
+                    <i class="bi bi-key"></i> Room ID
+                </div>
+                ${type !== 'result' ? `
+                <div class="btn-details" onclick="event.stopPropagation(); window.openPrizePool('${m.dbKey}')">
+                    <i class="bi bi-trophy"></i> Prize Pool
+                </div>` : `
+                <div class="btn-details" onclick="event.stopPropagation(); window.openResultDetails('${m.dbKey}')">
+                    <i class="bi bi-list-ol"></i> Full Leaderboard
+                </div>`}
+            </div>
+
+            ${type !== 'result' ? `
+            <div class="mc-footer-timer match-countdown" data-time="${m.timestamp || 0}">
+                <i class="bi bi-clock-history"></i> Loading timer...
+            </div>` : ''}
+        </div>`;
+    }
+
+    function openMatchDetails(key) {
+        const m = rawMatches.find(x => x.dbKey === key);
+        if (!m) return;
+
+        document.querySelectorAll('.app-section').forEach(e => e.classList.remove('active'));
+        document.body.classList.add('sub-page');
+        document.querySelector('.tab-bar').classList.add('hidden');
+        document.getElementById('match-details-view').classList.add('active');
+
+        document.getElementById('md-title').innerText = m.title || 'Match Details';
+        const timerEl = document.getElementById('md-timer');
+        timerEl.dataset.time = m.timestamp || 0;
+        document.getElementById('md-time').innerText = "Match Time: " + (m.time || 'TBA');
+
+        const rulesBox = document.getElementById('md-rules-box');
+        if (m.rules) {
+            rulesBox.style.display = 'block';
+            rulesBox.innerHTML = `<div style="font-weight:600; color:var(--text-main); margin-bottom:4px;">Match Rules:</div>` + m.rules.replace(/\n/g, '<br>');
+        } else {
+            rulesBox.style.display = 'none';
+        }
+
+        const pList = document.getElementById('md-p-list');
+        pList.innerHTML = "";
+        let parts = [];
+
+        if (allParticipants[key]) {
+            parts = Object.values(allParticipants[key]);
+        }
+        document.getElementById('md-count').innerText = `${parts.length}/${m.total || 48}`;
+
+        if (parts.length === 0) {
+            pList.innerHTML = `<div style="text-align:center; padding:30px 15px; color:var(--text-muted); font-size:13px;">No players have joined this match yet.</div>`;
+        } else {
+            parts.forEach((p, idx) => {
+                pList.innerHTML += `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:var(--bg-main); margin-bottom:6px; border-radius:8px; border:1px solid var(--border-color);">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span style="color:var(--text-muted); font-size:13px; width:24px;">#${idx + 1}</span>
+                        <span style="color:var(--text-main); font-weight:500; font-size:14px;">${p.ign || 'Player'}</span>
+                    </div>
+                    <span style="font-size:12px; color:var(--secondary);">Joined</span>
+                </div>`;
+            });
+        }
+        window.scrollTo(0, 0);
+    }
+
+    function openResultDetails(key) {
+        const m = rawMatches.find(x => x.dbKey === key);
+        if (!m) return;
+
+        document.querySelectorAll('.app-section').forEach(e => e.classList.remove('active'));
+        document.body.classList.add('sub-page');
+        document.querySelector('.tab-bar').classList.add('hidden');
+        document.getElementById('result-details-view').classList.add('active');
+
+        const c = document.getElementById('rd-container');
+
+        let parts = [];
+        if (allParticipants[key]) {
+            parts = Object.values(allParticipants[key]);
+            parts.sort((a, b) => (Number(b.win) || 0) - (Number(a.win) || 0));
+        }
+
+        let winnersHTML = '';
+        let fullHTML = '';
+
+        parts.forEach((p, idx) => {
+            const row = `
+            <div style="display:flex; padding:10px 12px; font-size:13px; align-items:center; background:var(--bg-main); margin-bottom:6px; border-radius:8px; border:1px solid var(--border-color);">
+                <div style="width:12%; color:var(--text-muted);">#${idx + 1}</div>
+                <div style="width:48%; color:var(--text-main); font-weight:500;">${p.ign || 'Player'}</div>
+                <div style="width:20%; text-align:center; color:var(--text-muted);">${p.kills || 0} Kills</div>
+                <div style="width:20%; text-align:right; color:var(--success); font-weight:600;">৳ ${p.win || 0}</div>
+            </div>`;
+
+            if (Number(p.win) > 0) winnersHTML += row;
+            fullHTML += row;
+        });
+
+        if (!winnersHTML) winnersHTML = `<div style="padding:24px; text-align:center; color:var(--text-muted); font-size:13px;">Winner list is being updated.</div>`;
+        if (!fullHTML) fullHTML = `<div style="padding:24px; text-align:center; color:var(--text-muted); font-size:13px;">No player records found.</div>`;
+
+        c.innerHTML = `
+        <div class="rd-card premium-card">
+            <div class="rd-title-box">
+                <div class="rd-main-title">${m.title}</div>
+                <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">Played on ${m.time}</div>
+            </div>
+            <div class="mc-stats-grid">
+                <div class="mc-stat-box">
+                    <div class="mc-stat-label">Total Prize</div>
+                    <div class="mc-stat-value prize">৳ ${m.total_prize}</div>
+                </div>
+                <div class="mc-stat-box">
+                    <div class="mc-stat-label">Per Kill</div>
+                    <div class="mc-stat-value">৳ ${m.per_kill}</div>
+                </div>
+                <div class="mc-stat-box">
+                    <div class="mc-stat-label">Entry Fee</div>
+                    <div class="mc-stat-value fee">৳ ${m.entry}</div>
+                </div>
+            </div>
+
+            <div style="padding:12px 14px; font-weight:600; font-size:14px; color:var(--text-main); border-top:1px solid var(--border-color);">
+                <i class="bi bi-trophy-fill" style="color:var(--warning); margin-right:6px;"></i> Winners
+            </div>
+            <div style="padding:0 12px 12px;">${winnersHTML}</div>
+
+            <div style="padding:12px 14px; font-weight:600; font-size:14px; color:var(--text-main); border-top:1px solid var(--border-color);">
+                <i class="bi bi-people-fill" style="color:var(--primary); margin-right:6px;"></i> All Players
+            </div>
+            <div style="padding:0 12px 12px;">${fullHTML}</div>
+        </div>`;
+        window.scrollTo(0, 0);
+    }
+
+    function openPrizePool(key) {
+        const m = rawMatches.find(x => x.dbKey === key);
+        if (!m) return;
+        document.getElementById('prize-modal-subtitle').innerText = m.title;
+        const c = document.getElementById('prize-list-content');
+        if (m.prize_desc) {
+            c.innerHTML = `<div style="font-size:14px; color:var(--text-main); line-height:1.7; background:var(--bg-main); padding:14px; border-radius:10px; border:1px solid var(--border-color);">${m.prize_desc.replace(/\n/g, '<br>')}</div>`;
+        } else {
+            const total = Number(m.total_prize) || 0;
+            const w = Math.floor(total * 0.4);
+            const s = Math.floor(total * 0.2);
+            const t = Math.floor(total * 0.1);
+            c.innerHTML = `
+                <div style="display:flex; justify-content:space-between; padding:10px 14px; margin-bottom:8px; background:var(--bg-main); border-radius:8px; border:1px solid var(--border-color);">
+                    <span><i class="bi bi-trophy-fill" style="color:var(--warning); margin-right:8px;"></i>1st Prize</span>
+                    <span style="font-weight:600; color:var(--warning);">৳ ${w}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:10px 14px; margin-bottom:8px; background:var(--bg-main); border-radius:8px; border:1px solid var(--border-color);">
+                    <span><i class="bi bi-award-fill" style="color:#94a3b8; margin-right:8px;"></i>2nd Prize</span>
+                    <span style="font-weight:600;">৳ ${s}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:10px 14px; margin-bottom:8px; background:var(--bg-main); border-radius:8px; border:1px solid var(--border-color);">
+                    <span><i class="bi bi-award-fill" style="color:#b45309; margin-right:8px;"></i>3rd Prize</span>
+                    <span style="font-weight:600;">৳ ${t}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:10px 14px; margin-bottom:12px; background:var(--bg-main); border-radius:8px; border:1px solid var(--border-color);">
+                    <span><i class="bi bi-crosshair" style="color:var(--danger); margin-right:8px;"></i>Per Kill</span>
+                    <span style="font-weight:600;">৳ ${m.per_kill || 0}</span>
+                </div>
+                <div style="text-align:center; padding:12px; background:var(--primary-light); color:var(--secondary); border-radius:8px; font-weight:600;">
+                    Total Prize Pool: ৳ ${total}
+                </div>
+            `;
+        }
+        document.getElementById('prize-modal').classList.add('active');
+    }
+
+    function checkRoom(key) {
+        if (!currentUser) return;
+
+        const m = rawMatches.find(x => x.dbKey === key);
+        if (!m) return;
+
+        const isJoined = userJoinedMatches.includes(key);
+
+        if (isJoined) {
+            const rId = m.room_id || '';
+            const rPass = m.room_pass || '';
+
+            if (!rId || rId === 'undefined' || rId.length < 2) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Room ID Not Ready',
+                    text: 'Room ID and Password will be shared here 10–15 minutes before the match starts.',
+                    confirmButtonText: 'OK',
+                    background: '#111827',
+                    color: '#f8fafc'
+                });
+            } else {
+                document.getElementById('popup-room-id').innerText = rId;
+                document.getElementById('popup-room-pass').innerText = rPass || 'No Password';
+                document.getElementById('room-modal').classList.add('active');
+            }
+        } else {
+            document.getElementById('join-warning-modal').classList.add('active');
+        }
+    }
+
+    function prepJoin(id, type, fee, key, title, prizePool, matchTime) {
+        if (!currentUser) return;
+
+        if (userJoinedMatches.includes(id)) {
+            Swal.fire({ icon: 'info', title: 'Already Joined', text: 'You have already joined this match.', background: '#111827', color: '#f8fafc' });
+            return;
+        }
+        currentJoinId = id;
+        currentEntryFee = Number(fee) || 0;
+
+        document.getElementById('join-page-title').innerText = title || "Join Match";
+        document.getElementById('join-page-meta').innerText = matchTime ? `Match Time: ${matchTime}` : '';
+        document.getElementById('join-page-win').innerText = "৳ " + (prizePool || 0);
+        document.getElementById('join-page-fee').innerText = "৳ " + currentEntryFee;
+        document.getElementById('join-page-type').innerText = (type || "Solo") + " Match";
+
+        let slots = 1;
+        if (type && type.toLowerCase().includes('duo')) slots = 2;
+        if (type && type.toLowerCase().includes('squad')) slots = 4;
+
+        const ic = document.getElementById('join-inputs-container');
+        ic.innerHTML = "";
+        for (let i = 1; i <= slots; i++) {
+            ic.innerHTML += `
+            <div class="auth-input-group">
+                <i class="bi bi-controller bi-input-icon"></i>
+                <input type="text" class="auth-input-field p-name" placeholder="Player ${i} In-Game Name">
+            </div>`;
+        }
+
+        const joinBtn = document.getElementById('confirm-join-btn');
+        if (joinBtn) joinBtn.dataset.key = key;
+
+        document.querySelectorAll('.app-section').forEach(e => e.classList.remove('active'));
+        document.body.classList.add('sub-page');
+        document.querySelector('.tab-bar').classList.add('hidden');
+        document.getElementById('join-match-view').classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function closeJoinPage() {
+        document.getElementById('join-match-view').classList.remove('active');
+        if (currentActiveCategory) {
+            document.getElementById('matches-view').classList.add('active');
+        } else {
+            document.getElementById('tab-home-view').classList.add('active');
+            document.body.classList.remove('sub-page');
+            document.querySelector('.tab-bar').classList.remove('hidden');
+        }
+    }
+
+    async function confirmJoin() {
+        if (userJoinedMatches.includes(currentJoinId)) {
+            return Swal.fire({ icon: 'warning', title: 'Already Joined', text: 'You have already joined this match!', background: '#111827', color: '#f8fafc' });
+        }
+
+        const inps = document.querySelectorAll('.p-name');
+        let names = [];
+        inps.forEach(i => {
+            if (i.value.trim()) names.push(i.value.trim());
+        });
+        if (names.length !== inps.length) {
+            return Swal.fire({ icon: 'warning', title: 'Missing Player Name', text: 'Please enter all player in-game names.', background: '#111827', color: '#f8fafc' });
+        }
+
+        const count = names.length;
+        const total = currentEntryFee * count;
+        if ((depositBal + winningBal) < total) {
+            return Swal.fire({ icon: 'error', title: 'Insufficient Balance', text: `You need ৳ ${total} to join. Please add money to your wallet.`, background: '#111827', color: '#f8fafc' });
+        }
+
+        const joinBtn = document.getElementById('confirm-join-btn');
+        const key = joinBtn ? joinBtn.dataset.key : currentJoinId;
+
+        let d = depositBal, w = winningBal;
+        let rem = total;
+        if (d >= rem) { d -= rem; rem = 0; }
+        else { rem -= d; d = 0; w -= rem; }
+
+        try {
+            if (joinBtn) joinBtn.disabled = true;
+            await update(ref(db, 'users/' + currentUser.uid), { deposit: d, winning: w });
+
+            for (let n of names) {
+                await push(ref(db, 'match_participants/' + currentJoinId), {
+                    ign: n, joinedBy: currentUser.uid, kills: 0, win: 0
+                });
+            }
+
+            const mRef = ref(db, 'matches/' + key);
+            const snap = await get(mRef);
+            const cur = (snap.val() && snap.val().joined) ? Number(snap.val().joined) : 0;
+            await update(mRef, { joined: cur + count });
+
+            const tid = push(ref(db, 'transactions/' + currentUser.uid)).key;
+            await set(ref(db, 'transactions/' + currentUser.uid + '/' + tid), {
+                type: 'Match Entry', amount: total, method: 'Wallet', status: 'Success', date: new Date().toLocaleString()
+            });
+
+            if (!userJoinedMatches.includes(currentJoinId)) {
+                userJoinedMatches.push(currentJoinId);
+            }
+            filterMatchTab(currentMatchFilter);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Joined Successfully!',
+                text: 'You have joined the match. Check Room ID 10 minutes before start time.',
+                background: '#111827', color: '#f8fafc'
+            }).then(() => {
+                closeJoinPage();
+            });
+        } catch (e) {
+            Swal.fire({ icon: 'error', title: 'Error', text: e.message, background: '#111827', color: '#f8fafc' });
+        } finally {
+            if (joinBtn) joinBtn.disabled = false;
+        }
+    }
+
+    // ================= AUTHENTICATION & USER STATE =================
+    onAuthStateChanged(auth, user => {
+        if (user) {
+            currentUser = user;
+            document.getElementById('auth-view').classList.remove('active');
+            document.getElementById('main-content').style.display = 'block';
+            document.querySelector('.tab-bar').classList.remove('hidden');
+
+            document.getElementById('profile-name').innerText = user.displayName || 'Player';
+            document.getElementById('profile-email').innerText = user.email || '';
+            document.getElementById('ep-name-display').innerText = user.displayName || 'Player';
+            document.getElementById('ep-email-display').innerText = user.email || '';
+
+            const uRef = ref(db, 'users/' + user.uid);
+            onValue(uRef, snap => {
+                const d = snap.val();
+                if (d) {
+                    depositBal = Number(d.deposit) || 0;
+                    winningBal = Number(d.winning) || 0;
+                    const total = depositBal + winningBal;
+
+                    document.getElementById('header-bal-total').innerText = total;
+                    document.getElementById('profile-bal-dep').innerText = depositBal;
+                    document.getElementById('profile-bal-win').innerText = winningBal;
+                    document.getElementById('wallet-balance-display').innerText = total;
+                    document.getElementById('deposit-available-wallet').innerText = depositBal;
+                    document.getElementById('withdraw-available-wallet').innerText = winningBal;
+                    document.getElementById('withdraw-available').innerText = winningBal;
+
+                    if (d.username) {
+                        document.getElementById('profile-name').innerText = d.username;
+                        document.getElementById('ep-name-display').innerText = d.username;
+                        document.getElementById('ep-username').value = d.username;
+                    }
+                    if (d.phone) {
+                        document.getElementById('ep-phone').value = d.phone;
+                    }
+                    const refCode = d.referCode || user.uid.substring(0, 6).toUpperCase();
+                    document.getElementById('refer-code-display').innerText = refCode;
+                } else {
+                    const defaultRefCode = user.uid.substring(0, 6).toUpperCase();
+                    set(uRef, {
+                        username: user.displayName || 'Player',
+                        email: user.email || '',
+                        phone: '',
+                        deposit: 0,
+                        winning: 0,
+                        referCode: defaultRefCode,
+                        createdAt: serverTimestamp()
+                    });
+                }
+            });
+
+            calculateJoinedMatches();
+        } else {
+            currentUser = null;
+            depositBal = 0;
+            winningBal = 0;
+            document.getElementById('main-content').style.display = 'none';
+            document.querySelector('.tab-bar').classList.add('hidden');
+            document.getElementById('auth-view').classList.add('active');
+        }
+    });
+
+    function toggleAuthMode(mode) {
+        const loginBox = document.getElementById('login-container');
+        const regBox = document.getElementById('register-container');
+        if (mode === 'register') {
+            loginBox.style.display = 'none';
+            regBox.style.display = 'flex';
+        } else {
+            regBox.style.display = 'none';
+            loginBox.style.display = 'flex';
+        }
+    }
+
+    async function emailLogin() {
+        const email = document.getElementById('login-email').value.trim();
+        const pass = document.getElementById('login-pass').value.trim();
+        const btn = document.getElementById('btn-login-submit');
+
+        if (!email || !pass) {
+            return Swal.fire({ icon: 'warning', title: 'Missing Fields', text: 'Please enter your email and password.', background: '#111827', color: '#f8fafc' });
+        }
+
+        try {
+            if (btn) { btn.disabled = true; btn.innerText = 'Signing in...'; }
+            await signInWithEmailAndPassword(auth, email, pass);
+        } catch (e) {
+            Swal.fire({ icon: 'error', title: 'Login Failed', text: e.message, background: '#111827', color: '#f8fafc' });
+        } finally {
+            if (btn) { btn.disabled = false; btn.innerText = 'Login'; }
+        }
+    }
+
+    async function emailRegister() {
+        const username = document.getElementById('reg-username').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const phone = document.getElementById('reg-phone').value.trim();
+        const pass = document.getElementById('reg-pass').value.trim();
+        const promo = document.getElementById('reg-promo').value.trim();
+        const terms = document.getElementById('reg-terms').checked;
+        const btn = document.getElementById('btn-reg-submit');
+
+        if (!username || !email || !phone || !pass) {
+            return Swal.fire({ icon: 'warning', title: 'Missing Info', text: 'Please fill in all required fields.', background: '#111827', color: '#f8fafc' });
+        }
+        if (pass.length < 6) {
+            return Swal.fire({ icon: 'warning', title: 'Weak Password', text: 'Password must be at least 6 characters long.', background: '#111827', color: '#f8fafc' });
+        }
+        if (!terms) {
+            return Swal.fire({ icon: 'warning', title: 'Terms & Rules', text: 'Please agree to the Terms and Rules.', background: '#111827', color: '#f8fafc' });
+        }
+
+        try {
+            if (btn) { btn.disabled = true; btn.innerText = 'Creating Account...'; }
+            const cred = await createUserWithEmailAndPassword(auth, email, pass);
+            await updateProfile(cred.user, { displayName: username });
+
+            const myReferCode = cred.user.uid.substring(0, 6).toUpperCase();
+            await set(ref(db, 'users/' + cred.user.uid), {
+                username: username,
+                email: email,
+                phone: phone,
+                deposit: 0,
+                winning: 0,
+                referCode: myReferCode,
+                referredBy: promo || '',
+                createdAt: serverTimestamp()
+            });
+
+            Swal.fire({ icon: 'success', title: 'Welcome!', text: 'Your account has been created successfully.', background: '#111827', color: '#f8fafc' });
+        } catch (e) {
+            Swal.fire({ icon: 'error', title: 'Sign Up Failed', text: e.message, background: '#111827', color: '#f8fafc' });
+        } finally {
+            if (btn) { btn.disabled = false; btn.innerText = 'Create Account'; }
+        }
+    }
+
+    async function resetUserPassword() {
+        const email = document.getElementById('login-email').value.trim();
+        if (!email) {
+            return Swal.fire({ icon: 'info', title: 'Enter Email First', text: 'Please enter your registered email address in the email box above, then tap Forgot Password.', background: '#111827', color: '#f8fafc' });
+        }
+        try {
+            await sendPasswordResetEmail(auth, email);
+            Swal.fire({ icon: 'success', title: 'Reset Link Sent', text: 'Check your email inbox or spam folder for the password reset link.', background: '#111827', color: '#f8fafc' });
+        } catch (e) {
+            Swal.fire({ icon: 'error', title: 'Error', text: e.message, background: '#111827', color: '#f8fafc' });
+        }
+    }
+
+    async function handleLogout() {
+        const res = await Swal.fire({
+            icon: 'question',
+            title: 'Log Out?',
+            text: 'Are you sure you want to log out of your account?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Log Out',
+            cancelButtonText: 'Cancel',
+            background: '#111827',
+            color: '#f8fafc'
+        });
+        if (res.isConfirmed) {
+            await signOut(auth);
+            showTab('home');
+        }
+    }
+
+    // ================= PROFILE & WALLET OPERATIONS =================
+    async function saveProfile() {
+        if (!currentUser) return;
+        const newName = document.getElementById('ep-username').value.trim();
+        const newPhone = document.getElementById('ep-phone').value.trim();
+        const curPass = document.getElementById('ep-pass-cur').value.trim();
+        const newPass = document.getElementById('ep-pass-new').value.trim();
+        const conPass = document.getElementById('ep-pass-con').value.trim();
+
+        if (!newName) {
+            return Swal.fire({ icon: 'warning', title: 'Invalid Name', text: 'Name cannot be empty.', background: '#111827', color: '#f8fafc' });
+        }
+
+        try {
+            await updateProfile(currentUser, { displayName: newName });
+            await update(ref(db, 'users/' + currentUser.uid), {
+                username: newName,
+                phone: newPhone
+            });
+
+            if (newPass) {
+                if (!curPass) {
+                    return Swal.fire({ icon: 'warning', title: 'Current Password Required', text: 'Enter your current password to set a new password.', background: '#111827', color: '#f8fafc' });
+                }
+                if (newPass !== conPass) {
+                    return Swal.fire({ icon: 'error', title: 'Mismatch', text: 'New password and confirm password do not match.', background: '#111827', color: '#f8fafc' });
+                }
+                const credential = EmailAuthProvider.credential(currentUser.email, curPass);
+                await reauthenticateWithCredential(currentUser, credential);
+                await updatePassword(currentUser, newPass);
+                document.getElementById('ep-pass-cur').value = '';
+                document.getElementById('ep-pass-new').value = '';
+                document.getElementById('ep-pass-con').value = '';
+            }
+
+            Swal.fire({ icon: 'success', title: 'Profile Updated', text: 'Your changes have been saved.', background: '#111827', color: '#f8fafc' });
+        } catch (e) {
+            Swal.fire({ icon: 'error', title: 'Update Failed', text: e.message, background: '#111827', color: '#f8fafc' });
+        }
+    }
+
+    function switchPayTab(method) {
+        currentPayMethod = method;
+        ['bkash', 'nagad', 'rocket'].forEach(m => {
+            const tab = document.getElementById('tab-' + m);
+            const box = document.getElementById('content-' + m);
+            if (m === method) {
+                if (tab) tab.classList.add('active');
+                if (box) box.style.display = 'block';
+            } else {
+                if (tab) tab.classList.remove('active');
+                if (box) box.style.display = 'none';
+            }
+        });
+    }
+
+    function triggerVerify() {
+        verifyAutoPay(currentPayMethod);
+    }
+
+    async function verifyAutoPay(method) {
+        if (!currentUser) return;
+        const trxInput = document.getElementById('trx-' + method);
+        const amtInput = document.getElementById('amt-' + method);
+
+        const trxId = trxInput ? trxInput.value.trim().toUpperCase() : '';
+        const amount = amtInput ? parseFloat(amtInput.value) : 0;
+
+        if (!trxId || trxId.length < 5) {
+            return Swal.fire({ icon: 'warning', title: 'Invalid TrxID', text: 'Please enter a valid Transaction ID (TrxID).', background: '#111827', color: '#f8fafc' });
+        }
+        if (!amount || amount <= 0) {
+            return Swal.fire({ icon: 'warning', title: 'Enter Amount', text: 'Please enter the exact amount you sent.', background: '#111827', color: '#f8fafc' });
+        }
+
+        try {
+            const reqId = push(ref(db, 'deposit_requests')).key;
+            await set(ref(db, 'deposit_requests/' + reqId), {
+                userId: currentUser.uid,
+                username: currentUser.displayName || 'Player',
+                method: method.toUpperCase(),
+                amount: amount,
+                trxId: trxId,
+                status: 'Pending',
+                date: new Date().toLocaleString(),
+                timestamp: serverTimestamp()
+            });
+
+            const tid = push(ref(db, 'transactions/' + currentUser.uid)).key;
+            await set(ref(db, 'transactions/' + currentUser.uid + '/' + tid), {
+                type: 'Add Money (' + method.toUpperCase() + ')',
+                amount: amount,
+                method: method.toUpperCase(),
+                trxId: trxId,
+                status: 'Pending',
+                date: new Date().toLocaleString()
+            });
+
+            if (trxInput) trxInput.value = '';
+            if (amtInput) amtInput.value = '';
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Verification Submitted!',
+                text: 'Your payment is being verified and will be added to your wallet shortly.',
+                background: '#111827', color: '#f8fafc'
+            }).then(() => {
+                navigateSub('history');
+            });
+        } catch (e) {
+            Swal.fire({ icon: 'error', title: 'Error', text: e.message, background: '#111827', color: '#f8fafc' });
+        }
+    }
+
+    async function submitWithdraw() {
+        if (!currentUser) return;
+        const method = document.getElementById('withdraw-method').value;
+        const num = document.getElementById('withdraw-number').value.trim();
+        const amt = parseFloat(document.getElementById('withdraw-amount').value);
+
+        if (!num || num.length < 11) {
+            return Swal.fire({ icon: 'warning', title: 'Invalid Number', text: 'Please enter a valid 11-digit account number.', background: '#111827', color: '#f8fafc' });
+        }
+        if (!amt || amt < 100) {
+            return Swal.fire({ icon: 'warning', title: 'Minimum 100 BDT', text: 'Minimum withdrawal amount is 100 BDT.', background: '#111827', color: '#f8fafc' });
+        }
+        if (amt > winningBal) {
+            return Swal.fire({ icon: 'error', title: 'Insufficient Winning Balance', text: 'You can only withdraw from your available Winning Balance.', background: '#111827', color: '#f8fafc' });
+        }
+
+        try {
+            const newWin = winningBal - amt;
+            await update(ref(db, 'users/' + currentUser.uid), { winning: newWin });
+
+            const wid = push(ref(db, 'withdraw_requests')).key;
+            await set(ref(db, 'withdraw_requests/' + wid), {
+                userId: currentUser.uid,
+                username: currentUser.displayName || 'Player',
+                method: method,
+                number: num,
+                amount: amt,
+                status: 'Pending',
+                date: new Date().toLocaleString(),
+                timestamp: serverTimestamp()
+            });
+
+            const tid = push(ref(db, 'transactions/' + currentUser.uid)).key;
+            await set(ref(db, 'transactions/' + currentUser.uid + '/' + tid), {
+                type: 'Withdraw (' + method + ')',
+                amount: amt,
+                method: method,
+                status: 'Pending',
+                date: new Date().toLocaleString()
+            });
+
+            document.getElementById('withdraw-number').value = '';
+            document.getElementById('withdraw-amount').value = '';
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Withdrawal Requested!',
+                text: 'Your withdrawal request has been submitted for processing.',
+                background: '#111827', color: '#f8fafc'
+            }).then(() => {
+                navigateSub('history');
+            });
+        } catch (e) {
+            Swal.fire({ icon: 'error', title: 'Error', text: e.message, background: '#111827', color: '#f8fafc' });
+        }
+    }
+
+    function loadHistory() {
+        const list = document.getElementById('history-list');
+        if (!list || !currentUser) return;
+        list.innerHTML = "";
+
+        onValue(ref(db, 'transactions/' + currentUser.uid), s => {
+            const d = s.val();
+            list.innerHTML = "";
+            if (!d) {
+                list.innerHTML = `
+                <div class="empty-state-premium">
+                    <i class="bi bi-clock-history empty-state-icon"></i>
+                    <div class="empty-state-title">No Transactions Yet</div>
+                    <div class="empty-state-desc">Your deposits, withdrawals, and match entries will show here.</div>
+                </div>`;
+                return;
+            }
+            const items = Object.values(d).reverse();
+            items.forEach(t => {
+                const statusColor = t.status === 'Success' || t.status === 'Completed' || t.status === 'Approved'
+                    ? 'var(--success)'
+                    : t.status === 'Rejected' || t.status === 'Failed'
+                    ? 'var(--danger)'
+                    : 'var(--warning)';
+
+                list.innerHTML += `
+                <div class="history-card premium-card" style="border-left-color: ${statusColor};">
+                    <div>
+                        <div style="font-weight:600; font-size:14px; color:var(--text-main);">${t.type || 'Transaction'}</div>
+                        <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">${t.date || ''}</div>
+                        ${t.trxId ? `<div style="font-size:11px; color:var(--secondary); margin-top:2px;">TrxID: ${t.trxId}</div>` : ''}
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-weight:700; font-size:15px; color:var(--text-main);">৳ ${t.amount || 0}</div>
+                        <span style="font-size:11px; font-weight:600; color:${statusColor};">${t.status || 'Pending'}</span>
+                    </div>
+                </div>`;
+            });
+        }, { onlyOnce: true });
+    }
+
+    function loadNotifs() {
+        const c = document.getElementById('notif-list-container');
+        if (!c) return;
+        c.innerHTML = "";
+
+        onValue(ref(db, 'notifications'), s => {
+            const d = s.val();
+            c.innerHTML = "";
+            if (!d) {
+                c.innerHTML = `
+                <div class="empty-state-premium">
+                    <i class="bi bi-bell-slash empty-state-icon"></i>
+                    <div class="empty-state-title">No Notifications</div>
+                    <div class="empty-state-desc">Announcements and updates will appear here.</div>
+                </div>`;
+                return;
+            }
+            const items = Object.values(d).reverse();
+            items.forEach(n => {
+                c.innerHTML += `
+                <div class="notif-card premium-card">
+                    <div style="font-weight:600; font-size:15px; color:var(--text-main); margin-bottom:4px;">${n.title || 'Announcement'}</div>
+                    <div style="font-size:13px; color:var(--text-muted); line-height:1.5;">${n.message || n.body || ''}</div>
+                    <div style="font-size:11px; color:var(--secondary); margin-top:8px;">${n.date || ''}</div>
+                </div>`;
+            });
+        }, { onlyOnce: true });
+    }
+
+    // ================= UTILITIES & TIMERS =================
+    function copyToClipboard(elementId) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const text = el.innerText.trim();
+        if (!text || text === 'Loading...' || text === '--') return;
+
+        navigator.clipboard.writeText(text).then(() => {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Copied: ' + text,
+                showConfirmButton: false,
+                timer: 1500,
+                background: '#1e293b',
+                color: '#f8fafc'
+            });
+        }).catch(() => {
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Copied: ' + text,
+                showConfirmButton: false,
+                timer: 1500,
+                background: '#1e293b',
+                color: '#f8fafc'
+            });
+        });
+    }
+
+    function openVideo(type) {
+        const url = videoLinks[type];
+        if (url && url.startsWith('http')) {
+            window.open(url, '_blank');
+        } else {
+            Swal.fire({ icon: 'info', title: 'Coming Soon', text: 'Tutorial video link will be updated soon.', background: '#111827', color: '#f8fafc' });
+        }
+    }
+
+    function openSupport() {
+        if (supportLink && supportLink.startsWith('http')) {
+            window.open(supportLink, '_blank');
+        } else {
+            Swal.fire({ icon: 'info', title: 'Support link unavailable', text: 'The support contact has not been configured yet.', background: '#111827', color: '#f8fafc' });
+        }
+    }
+
+    function openShopLink() {
+        if (shopLink && shopLink.startsWith('http')) {
+            window.open(shopLink, '_blank');
+        } else {
+            showTab('shop');
+        }
+    }
+
+    function startTimers() {
+        setInterval(() => {
+            const timers = document.querySelectorAll('.match-countdown');
+            const now = Date.now();
+            timers.forEach(el => {
+                const target = Number(el.dataset.time) || 0;
+                if (!target) {
+                    el.innerHTML = `<i class="bi bi-clock-history"></i> Match Schedule Active`;
+                    return;
+                }
+                const diff = target - now;
+                if (diff <= 0) {
+                    el.innerHTML = `<i class="bi bi-broadcast" style="color:var(--success);"></i> Match Started / Ongoing`;
+                } else {
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                    const m = Math.floor((diff / 1000 / 60) % 60);
+                    const s = Math.floor((diff / 1000) % 60);
+                    const dStr = d > 0 ? `${d}d ` : '';
+                    el.innerHTML = `<i class="bi bi-hourglass-split"></i> Starts in: ${dStr}${h}h ${m}m ${s}s`;
+                }
+            });
+        }, 1000);
+    }
+</script>
+</body>
+</html>
